@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+@font-face {
+    font-family: 'Alexana Neue';
+    src: url('Alexana Neue.ttf');
+}
+
 @import'composent/body.scss';
 @import'composent/hexagone.scss';
 @import'composent/inputIndex.scss';
