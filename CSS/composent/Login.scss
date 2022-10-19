@@ -78,15 +78,27 @@
                 border-radius: 5px;
                 background-size: 500px;
                 animation: 2s linear 0s infinite alternate RECOLOR;
+                transition: 200ms;
+
+                &:hover {
+                    transition: 200ms;
+                    transform: scale(110%);
+                }
             }
 
             .unsubmit {
+                transition: 200ms;
                 color: #3c3939;
                 background: rgb(240, 255, 73);
                 border: none;
                 font-family: 'Alexana Neue';
                 font-size: 18px;
                 border-radius: 5px;
+
+                &:hover {
+                    transition: 200ms;
+                    transform: scale(110%);
+                }
 
             }
         }

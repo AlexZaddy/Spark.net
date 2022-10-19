@@ -1,23 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@font-face {
+  font-family: "Alexana Neue";
+  src: url("Alexana Neue.ttf");
+}
 body {
   background-color: #E0E0E0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+body header {
+  height: 5vh;
 }
 
 .content-hex {
   height: 100vh;
   display: grid;
-  grid-template-columns: 30.2vh 33.2vh 30.2vh;
   grid-template-rows: 30.2vh 30.2vh 30.2vh;
   overflow: visible;
   justify-content: center;
   align-items: center;
 }
 .content-hex .hexagone {
-  height: 29vh;
-  width: 29vh;
+  height: 30.5vh;
+  width: 30vh;
   position: relative;
   background-color: #3C3939;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
@@ -33,21 +36,21 @@ body {
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 .content-hex .hex1 {
-  grid-area: 1/1;
-  transform: translateY(8.5vh) translateX(1vh);
+  grid-area: 2/2;
+  transform: translateY(23.2vh) translateX(-12.8vh);
 }
 .content-hex .hex2 {
-  grid-area: 1/2;
-  transform: translateY(8.5vh);
+  grid-area: 2/2;
+  transform: translateY(23.3vh);
+  translate: 17.7vh;
 }
 .content-hex .hex3 {
-  grid-area: 2/1;
-  translate: -13.4vh;
+  grid-area: 2/2;
+  translate: -29vh;
   transform: translateY(0.3vh);
 }
 .content-hex .hex4 {
   grid-area: 2/2;
-  translate: -17.6vh;
   height: 35vh;
   width: 35vh;
   background: linear-gradient(190deg, rgb(68, 255, 0), rgb(242, 0, 190), rgb(0, 255, 251));
@@ -57,33 +60,40 @@ body {
   z-index: 1;
 }
 .content-hex .hex5 {
-  grid-area: 3/1;
-  transform: translateY(-7.9vh) translateX(1vh);
+  grid-area: 2/2;
+  transform: translateY(-22.6vh) translateX(-12.8vh);
 }
 .content-hex .hex6 {
-  grid-area: 3/2;
-  transform: translateY(-7.8vh);
+  grid-area: 2/2;
+  transform: translateY(-22.6vh);
+  translate: 17.7vh;
+}
+.content-hex .hex7 {
+  grid-area: 2/2;
+  translate: 34vh;
+  transform: translateY(0.3vh);
 }
 
 .content-input {
-  width: 65vh;
+  width: auto;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 0;
+  margin-left: 70%;
+  justify-content: space-around;
 }
 .content-input .connect {
-  width: 60vh;
-  height: 5vh;
+  width: 20%;
+  height: 100%;
   border: none;
   border-radius: 5px;
-  margin: 4% 0;
   box-shadow: rgba(0, 0, 0, 0.2509803922) 5px 6px 10px 0px;
   transition: 400ms;
+  z-index: 0;
 }
 .content-input .connect:hover {
   transition: 400ms;
-  width: 62vh;
+  width: 21%;
+  cursor: pointer;
 }
 .content-input .Email {
   background-color: #3C3939;
@@ -188,14 +198,24 @@ body {
   border-radius: 5px;
   background-size: 500px;
   animation: 2s linear 0s infinite alternate RECOLOR;
+  transition: 200ms;
+}
+.login form div .submit:hover {
+  transition: 200ms;
+  transform: scale(110%);
 }
 .login form div .unsubmit {
+  transition: 200ms;
   color: #3c3939;
   background: rgb(240, 255, 73);
   border: none;
   font-family: "Alexana Neue";
   font-size: 18px;
   border-radius: 5px;
+}
+.login form div .unsubmit:hover {
+  transition: 200ms;
+  transform: scale(110%);
 }
 
 @keyframes RECOLOR {
