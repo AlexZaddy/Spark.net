@@ -1,0 +1,256 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+body {
+  background-color: #E0E0E0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-hex {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 30.2vh 33.2vh 30.2vh;
+  grid-template-rows: 30.2vh 30.2vh 30.2vh;
+  overflow: visible;
+  justify-content: center;
+  align-items: center;
+}
+.content-hex .hexagone {
+  height: 29vh;
+  width: 29vh;
+  position: relative;
+  background-color: #3C3939;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content-hex .hexagone img {
+  height: 33vh;
+  width: 33vh;
+  object-fit: cover;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+.content-hex .hex1 {
+  grid-area: 1/1;
+  transform: translateY(8.5vh) translateX(1vh);
+}
+.content-hex .hex2 {
+  grid-area: 1/2;
+  transform: translateY(8.5vh);
+}
+.content-hex .hex3 {
+  grid-area: 2/1;
+  translate: -13.4vh;
+  transform: translateY(0.3vh);
+}
+.content-hex .hex4 {
+  grid-area: 2/2;
+  translate: -17.6vh;
+  height: 35vh;
+  width: 35vh;
+  background: linear-gradient(190deg, rgb(68, 255, 0), rgb(242, 0, 190), rgb(0, 255, 251));
+  background-size: auto;
+  background-size: 900%;
+  animation: 4s linear 0s infinite alternate RECOLOR;
+  z-index: 1;
+}
+.content-hex .hex5 {
+  grid-area: 3/1;
+  transform: translateY(-7.9vh) translateX(1vh);
+}
+.content-hex .hex6 {
+  grid-area: 3/2;
+  transform: translateY(-7.8vh);
+}
+
+.content-input {
+  width: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 0;
+}
+.content-input .connect {
+  width: 60vh;
+  height: 5vh;
+  border: none;
+  border-radius: 5px;
+  margin: 4% 0;
+  box-shadow: rgba(0, 0, 0, 0.2509803922) 5px 6px 10px 0px;
+  transition: 400ms;
+}
+.content-input .connect:hover {
+  transition: 400ms;
+  width: 62vh;
+}
+.content-input .Email {
+  background-color: #3C3939;
+  font-family: "Alexana Neue";
+  color: #FFFBFB;
+  font-size: 20px;
+}
+.content-input .Google {
+  background-color: #FFFBFB;
+}
+.content-input .Facebook {
+  background-color: #3B5998;
+}
+
+.intro {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: 4s ease-in DIVINTRO;
+  cursor: default;
+}
+.intro span {
+  font-size: 30vh;
+  font-family: "Alexana Neue";
+  animation: 4s ease-in INTRO;
+  opacity: 0;
+}
+
+.login {
+  background-color: #3c3939;
+  width: 42%;
+  height: 100vh;
+  position: fixed;
+  top: 0%;
+  right: 0%;
+  bottom: 3vh;
+  transition: 700ms;
+  animation: 300ms ease-in LOGIN;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login div {
+  display: flex;
+  align-items: end;
+  width: 100%;
+}
+.login div img {
+  width: 4vh;
+  margin-right: 30%;
+  margin-left: 3%;
+}
+.login h2 {
+  font-family: "Alexana Neue";
+  color: white;
+  font-size: 35px;
+  width: 40%;
+  margin-top: 3vh;
+}
+.login form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+.login form label {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.login form input {
+  width: 35%;
+  height: 4vh;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+}
+.login form :only-child,
+.login form div {
+  margin-top: 5vh;
+  width: 70%;
+  height: 4vh;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  padding: 1vh;
+}
+.login form div {
+  display: flex;
+  justify-content: space-around;
+}
+.login form div .submit {
+  color: #3c3939;
+  background: linear-gradient(120deg, rgb(0, 255, 81), rgb(0, 255, 247));
+  border: none;
+  font-family: "Alexana Neue";
+  font-size: 18px;
+  border-radius: 5px;
+  background-size: 500px;
+  animation: 2s linear 0s infinite alternate RECOLOR;
+}
+.login form div .unsubmit {
+  color: #3c3939;
+  background: rgb(240, 255, 73);
+  border: none;
+  font-family: "Alexana Neue";
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+@keyframes RECOLOR {
+  from {
+    background-position: 0%;
+  }
+  50% {
+    background-position: 60%;
+  }
+  to {
+    background-position: 100%;
+  }
+}
+@keyframes INTRO {
+  from {
+    color: #ffffff;
+    margin: 0 5%;
+    z-index: 2;
+  }
+  30% {
+    opacity: 1;
+    margin: 0 5%;
+    z-index: 2;
+  }
+  to {
+    color: rgba(255, 255, 255, 0);
+    opacity: 0;
+    margin: 0;
+    z-index: -1;
+  }
+}
+@keyframes DIVINTRO {
+  from {
+    opacity: 1;
+    background-color: black;
+    z-index: 3;
+  }
+  90% {
+    z-index: 3;
+    opacity: 1;
+    background-color: black;
+  }
+  to {
+    opacity: 0;
+    color: rgba(0, 0, 0, 0);
+    z-index: 0;
+  }
+}
+@keyframes LOGIN {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

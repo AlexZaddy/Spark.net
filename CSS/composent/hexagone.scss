@@ -1,0 +1,74 @@
+.content-hex {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 30.2vh 33.2vh 30.2vh;
+    grid-template-rows: 30.2vh 30.2vh 30.2vh;
+    overflow: visible;
+    justify-content: center;
+    align-items: center;
+
+
+
+
+    .hexagone {
+        height: 29vh;
+        width: 29vh;
+        position: relative;
+        background-color: #3C3939;
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            height: 33vh;
+            width: 33vh;
+            object-fit: cover;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+
+        }
+    }
+
+    .hex1 {
+        grid-area: 1/1;
+        transform: translateY(8.5vh) translateX(1vh);
+    }
+
+    .hex2 {
+        grid-area: 1/2;
+        transform: translateY(8.5vh);
+    }
+
+    .hex3 {
+        grid-area: 2/1;
+        translate: -13.4vh;
+        transform: translateY(0.3vh);
+    }
+
+    .hex4 {
+        grid-area: 2/2;
+        translate: -17.6vh;
+        height: 35vh;
+        width: 35vh;
+        background: linear-gradient(190deg, rgb(68, 255, 0), rgb(242, 0, 190), rgb(0, 255, 251));
+        background-size: auto;
+        background-size: 900%;
+        animation: 4s linear 0s infinite alternate RECOLOR;
+        z-index: 1;
+
+    }
+
+    .hex5 {
+        grid-area: 3/1;
+        transform: translateY(-7.9vh) translateX(1vh);
+    }
+
+    .hex6 {
+        grid-area: 3/2;
+        transform: translateY(-7.8vh);
+
+    }
+
+
+}

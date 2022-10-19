@@ -1,0 +1,71 @@
+@keyframes RECOLOR {
+    from {
+        background-position: 0%;
+    }
+
+    50% {
+        background-position: 60%;
+
+    }
+
+    to {
+        background-position: 100%;
+    }
+}
+
+@keyframes INTRO {
+    from {
+        color: #ffffff;
+        margin: 0 5%;
+        z-index: 2;
+    }
+
+    30% {
+        opacity: 1;
+        margin: 0 5%;
+        z-index: 2;
+
+    }
+
+    to {
+        color: rgba(255, 255, 255, 0);
+        opacity: 0;
+        margin: 0;
+        z-index: -1;
+    }
+}
+
+@keyframes DIVINTRO {
+    from {
+        opacity: 1;
+        background-color: black;
+        z-index: 3;
+    }
+
+    90% {
+        z-index: 3;
+        opacity: 1;
+        background-color: black;
+
+    }
+
+    to {
+        opacity: 0;
+        //background-color: black;
+        color: rgba(0, 0, 0, 0);
+        z-index: 0;
+
+    }
+}
+
+@keyframes LOGIN {
+    from {
+        opacity: 0;
+    }
+
+    30% {}
+
+    to {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,39 @@
+.content-input {
+    width: 65vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 0;
+
+
+    .connect {
+        width: 60vh;
+        height: 5vh;
+        border: none;
+        border-radius: 5px;
+        margin: 4% 0;
+        box-shadow: #00000040 5px 6px 10px 0px;
+        transition: 400ms;
+
+        &:hover {
+            transition: 400ms;
+            width: 62vh;
+        }
+    }
+
+    .Email {
+        background-color: #3C3939;
+        font-family: 'Alexana Neue';
+        color: #FFFBFB;
+        font-size: 20px;
+
+    }
+
+    .Google {
+        background-color: #FFFBFB;
+    }
+
+    .Facebook {
+        background-color: #3B5998;
+    }
+}
