@@ -105,14 +105,14 @@ body header {
   padding: 0 5%;
 }
 .content-input .Google {
-  background-image: url("../CSS/ICON/Google-Logo.svg");
+  background-image: url("./ICON/Google-Logo.png");
   background-size: 50%;
   background-repeat: no-repeat;
   width: 8%;
   background-position: center;
 }
 .content-input .Facebook {
-  background-image: url("../CSS/ICON/Facebook.svg");
+  background-image: url("./ICON/Facebook.png");
   background-size: 50%;
   background-repeat: no-repeat;
   width: 8%;

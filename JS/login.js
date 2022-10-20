@@ -92,7 +92,7 @@ class Login {
 
         return ` <div class="login">
                     <div>
-                        <img class="arrow" src="../CSS/ICON/arrow-left-solid.svg" />
+                        <img class="arrow" src="./CSS/ICON/arrow-left-solid.svg" />
                         <h2>INSCRIPTION</h2>
                     </div>
                     <form action="" method="post">
