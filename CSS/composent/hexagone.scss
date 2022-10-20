@@ -1,11 +1,11 @@
 .content-hex {
-    height: 100vh;
     display: grid;
     // grid-template-columns: 30.2vh 33.2vh 30.2vh;
     grid-template-rows: 30.2vh 30.2vh 30.2vh;
     overflow: visible;
     justify-content: center;
     align-items: center;
+    transition: 400ms;
 
 
     .hexagone {

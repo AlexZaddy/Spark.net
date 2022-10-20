@@ -7,18 +7,19 @@
 
 
     .connect {
-        width: 20%;
+        width: auto;
         height: 100%;
         border: none;
         border-radius: 5px;
         box-shadow: #00000040 5px 6px 10px 0px;
         transition: 400ms;
         z-index: 0;
+        margin: 2% 0;
 
         &:hover {
             transition: 400ms;
-            width: 21%;
             cursor: pointer;
+            margin: 3% 0;
         }
     }
 
@@ -32,9 +33,20 @@
 
     .Google {
         background-color: #FFFBFB;
+        background-image: url('./ICON/Google-Logo.svg');
+        background-size: 50%;
+        background-repeat: no-repeat;
+        width: 8%;
+        background-position: center;
     }
 
     .Facebook {
-        background-color: #3B5998;
+        background-color: '';
+        background-image: url('./ICON/Facebook.svg');
+        background-size: 50%;
+        background-repeat: no-repeat;
+        width: 8%;
+        background-position: center;
+
     }
 }

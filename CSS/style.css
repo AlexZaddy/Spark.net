@@ -8,15 +8,16 @@ body {
 }
 body header {
   height: 5vh;
+  transition: 400ms;
 }
 
 .content-hex {
-  height: 100vh;
   display: grid;
   grid-template-rows: 30.2vh 30.2vh 30.2vh;
   overflow: visible;
   justify-content: center;
   align-items: center;
+  transition: 400ms;
 }
 .content-hex .hexagone {
   height: 30.5vh;
@@ -82,18 +83,19 @@ body header {
   justify-content: space-around;
 }
 .content-input .connect {
-  width: 20%;
+  width: auto;
   height: 100%;
   border: none;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.2509803922) 5px 6px 10px 0px;
   transition: 400ms;
   z-index: 0;
+  margin: 2% 0;
 }
 .content-input .connect:hover {
   transition: 400ms;
-  width: 21%;
   cursor: pointer;
+  margin: 3% 0;
 }
 .content-input .Email {
   background-color: #3C3939;
@@ -103,9 +105,19 @@ body header {
 }
 .content-input .Google {
   background-color: #FFFBFB;
+  background-image: url("./ICON/Google-Logo.svg");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  width: 8%;
+  background-position: center;
 }
 .content-input .Facebook {
-  background-color: #3B5998;
+  background-color: "";
+  background-image: url("./ICON/Facebook.svg");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  width: 8%;
+  background-position: center;
 }
 
 .intro {
@@ -119,16 +131,15 @@ body header {
   cursor: default;
 }
 .intro span {
-  font-size: 30vh;
+  font-size: 20em;
   font-family: "Alexana Neue";
   animation: 4s ease-in INTRO;
   opacity: 0;
 }
 
 .login {
-  background-color: #3c3939;
-  width: 42%;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: fixed;
   top: 0%;
   right: 0%;
@@ -138,30 +149,46 @@ body header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 2;
 }
 .login div {
   display: flex;
-  align-items: end;
+  align-items: center;
   width: 100%;
+  justify-content: center;
 }
 .login div img {
   width: 4vh;
   margin-right: 30%;
   margin-left: 3%;
+  position: fixed;
+  top: 1rem;
+  left: 0px;
 }
 .login h2 {
   font-family: "Alexana Neue";
-  color: white;
+  color: #3c3939;
   font-size: 35px;
-  width: 40%;
+  width: auto;
   margin-top: 3vh;
+}
+.login a {
+  margin-top: 5%;
+  font-size: 20px;
+  font-family: "Alexana Neue";
+  color: #d9d9d9;
+  font-weight: 600;
+}
+.login a:hover {
+  color: #b60afa;
 }
 .login form {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  width: 40%;
+  height: auto;
   align-items: center;
+  margin-top: 10%;
 }
 .login form label {
   width: 100%;
@@ -181,7 +208,6 @@ body header {
   width: 70%;
   height: 4vh;
   border: none;
-  border-radius: 5px;
   outline: none;
   padding: 1vh;
 }
@@ -190,8 +216,8 @@ body header {
   justify-content: space-around;
 }
 .login form div .submit {
-  color: #3c3939;
-  background: linear-gradient(120deg, rgb(0, 255, 81), rgb(0, 255, 247));
+  color: #f7f7f7;
+  background: linear-gradient(120deg, #5a5a5a, #3c3939);
   border: none;
   font-family: "Alexana Neue";
   font-size: 18px;
@@ -207,11 +233,13 @@ body header {
 .login form div .unsubmit {
   transition: 200ms;
   color: #3c3939;
-  background: rgb(240, 255, 73);
+  background: linear-gradient(190deg, rgb(242, 0, 190), rgb(0, 255, 251));
   border: none;
   font-family: "Alexana Neue";
   font-size: 18px;
   border-radius: 5px;
+  background-size: 900%;
+  animation: 4s linear 0s infinite alternate RECOLOR;
 }
 .login form div .unsubmit:hover {
   transition: 200ms;

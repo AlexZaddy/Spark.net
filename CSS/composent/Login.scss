@@ -1,7 +1,6 @@
 .login {
-    background-color: #3c3939;
-    width: 42%;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     position: fixed;
     top: 0%;
     right: 0%;
@@ -11,33 +10,52 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 2;
 
     div {
         display: flex;
-        align-items: end;
+        align-items: center;
         width: 100%;
+        justify-content: center;
 
         img {
             width: 4vh;
             margin-right: 30%;
             margin-left: 3%;
+            position: fixed;
+            top: 1rem;
+            left: 0px;
         }
     }
 
     h2 {
-        font-family: 'Alexana Neue';
-        color: white;
+        font-family: "Alexana Neue";
+        color: #3c3939;
         font-size: 35px;
-        width: 40%;
+        width: auto;
         margin-top: 3vh;
+    }
+
+    a {
+        margin-top: 5%;
+        font-size: 20px;
+        font-family: 'Alexana Neue';
+        color: #d9d9d9;
+        font-weight: 600;
+
+        &:hover {
+            color: #b60afa;
+        }
     }
 
     form {
         display: flex;
         flex-direction: column;
-        width: 100%;
-        height: 100%;
+        width: 40%;
+        height: auto;
         align-items: center;
+        margin-top: 10%;
+
 
         label {
             width: 100%;
@@ -59,7 +77,7 @@
             width: 70%;
             height: 4vh;
             border: none;
-            border-radius: 5px;
+            // border-radius: 5px;
             outline: none;
             padding: 1vh;
 
@@ -70,8 +88,8 @@
             justify-content: space-around;
 
             .submit {
-                color: #3c3939;
-                background: linear-gradient(120deg, rgb(0, 255, 81), rgb(0, 255, 247));
+                color: #f7f7f7;
+                background: linear-gradient(120deg, #5a5a5a, #3c3939);
                 border: none;
                 font-family: 'Alexana Neue';
                 font-size: 18px;
@@ -89,11 +107,13 @@
             .unsubmit {
                 transition: 200ms;
                 color: #3c3939;
-                background: rgb(240, 255, 73);
+                background: linear-gradient(190deg, rgb(242, 0, 190), rgb(0, 255, 251));
                 border: none;
                 font-family: 'Alexana Neue';
                 font-size: 18px;
                 border-radius: 5px;
+                background-size: 900%;
+                animation: 4s linear 0s infinite alternate RECOLOR;
 
                 &:hover {
                     transition: 200ms;
