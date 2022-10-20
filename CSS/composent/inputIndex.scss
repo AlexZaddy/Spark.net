@@ -27,13 +27,13 @@
         background-color: #3C3939;
         font-family: 'Alexana Neue';
         color: #FFFBFB;
-        font-size: 20px;
+        font-size: 18px;
+        padding: 0 5%;
 
     }
 
     .Google {
-        background-color: #FFFBFB;
-        background-image: url('./ICON/Google-Logo.svg');
+        background-image: url('../CSS/ICON/Google-Logo.svg');
         background-size: 50%;
         background-repeat: no-repeat;
         width: 8%;
@@ -41,8 +41,8 @@
     }
 
     .Facebook {
-        background-color: '';
-        background-image: url('./ICON/Facebook.svg');
+
+        background-image: url('../CSS/ICON/Facebook.svg');
         background-size: 50%;
         background-repeat: no-repeat;
         width: 8%;
