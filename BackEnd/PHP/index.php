@@ -15,8 +15,8 @@ switch ($url) {
         break;
     case 'Unewuser':
        $data = json_decode(file_get_contents('php://input'));
-
-        newUser(htmlspecialchars($data->{'PSEUDO'}),htmlspecialchars($data->{'EMAIL'}),htmlspecialchars($data->{'MDP'}));
+        var_dump($data);
+        //newUser(htmlspecialchars($data->{'PSEUDO'}),htmlspecialchars($data->{'EMAIL'}),htmlspecialchars($data->{'MDP'}));
         break;
 
 
