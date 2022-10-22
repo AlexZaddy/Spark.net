@@ -102,9 +102,9 @@ const newUserSignUp = () => {
             method: 'POST',
             body: JSON.stringify(newUserSpark),
         })
-            .then(res => res.json())
+            .then(res => res.ok ? res.json() : '')
             .then(data => {
-                if (data.refus != 'acces' || data.refus == 'acces-denied') {
+                if (data.ok && data.refus != 'acces' || data.refus == 'acces-denied') {
                     Alert.style.display = 'flex';
                     Alert.style.background = '#ff3939'
                     Alert.innerHTML = new MessageAlert().createMsgAlert()
