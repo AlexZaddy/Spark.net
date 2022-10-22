@@ -1,0 +1,15 @@
+#Alert {
+    position: fixed;
+    z-index: 0;
+    color: white;
+    width: 15%;
+    height: 5vh;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.2509803922) 5px 6px 10px 0px;
+    left: 43%;
+    top: 10%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    animation: 3s ease-in-out ALERT;
+}

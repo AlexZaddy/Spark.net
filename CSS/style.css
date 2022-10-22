@@ -110,6 +110,7 @@ body header {
   background-repeat: no-repeat;
   width: 8%;
   background-position: center;
+  cursor: not-allowed !important;
 }
 .content-input .Facebook {
   background-image: url("./ICON/Facebook.png");
@@ -117,6 +118,7 @@ body header {
   background-repeat: no-repeat;
   width: 8%;
   background-position: center;
+  cursor: not-allowed !important;
 }
 
 .intro {
@@ -175,7 +177,7 @@ body header {
   margin-top: 5%;
   font-size: 20px;
   font-family: "Alexana Neue";
-  color: #d9d9d9;
+  color: #ffffff;
   font-weight: 600;
 }
 .login a:hover {
@@ -245,6 +247,22 @@ body header {
   transform: scale(110%);
 }
 
+#Alert {
+  position: fixed;
+  z-index: 0;
+  color: white;
+  width: 15%;
+  height: 5vh;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.2509803922) 5px 6px 10px 0px;
+  left: 43%;
+  top: 10%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  animation: 3s ease-in-out ALERT;
+}
+
 @keyframes RECOLOR {
   from {
     background-position: 0%;
@@ -297,6 +315,20 @@ body header {
   }
   to {
     opacity: 1;
+  }
+}
+@keyframes ALERT {
+  from {
+    opacity: 0;
+    top: 0;
+  }
+  40% {
+    opacity: 0;
+    top: 5%;
+  }
+  to {
+    opacity: 1;
+    top: 10%;
   }
 }
 
