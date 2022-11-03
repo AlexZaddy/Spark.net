@@ -57,6 +57,7 @@ const pageSignIn = () => {
         arrowBack();
         pageSignUp();
         connectUser();
+        userConnectSpark();
     })
 }
 
@@ -64,7 +65,7 @@ const pageSignIn = () => {
 const connectUser = () => {
     const userMail = document.getElementById('MAIL');
     const userMDP = document.getElementById('MDP');
-    const submit = document.querySelector('.submit')
+    const submit = document.querySelector('.submit');
 
     let userData = {
 
@@ -72,11 +73,63 @@ const connectUser = () => {
         MDP: userMDP.value,
     }
 
-    userMail.addEventListener('keyup', () => { userData.EMAIL = userMail.value })
-    userMDP.addEventListener('keyup', () => { userData.MDP = userMDP.value })
-    submit.addEventListener('click', () => { console.log(userData) })
+    userMail.addEventListener('keyup', () => { userData.EMAIL = userMail.value });
+    userMDP.addEventListener('keyup', () => { userData.MDP = userMDP.value });
+
+    submit.addEventListener('click', () => {
+        userData.EMAIL = userMail.value;
+        userData.MDP = userMDP.value
+
+
+        req = new XMLHttpRequest();
+        req.open('POST', './BackEnd/PHP/index.php?redirAll=Uconnect', true);
+        req.send(JSON.stringify(userData))
+
+        req.onreadystatechange = function () {
+            if (req.readyState === 4 && req.status === 200) {
+                if (JSON.parse(req.response).refus == "acces-denied") {
+
+                    Alert.style.display = 'flex';
+                    Alert.style.background = '#ff3939';
+                    Alert.innerHTML = new MessageAlert().createMsgAlert()
+                    setTimeout(() => {
+                        Alert.innerHTML = '';
+                        Alert.style.display = 'none';
+                    }, 4500);
+
+                } else if (JSON.parse(req.response).acces == "acces-accepter") {
+                    const divLogin = document.querySelector('.login')
+                    divLogin.style.opacity = 0;
+                    contentConnect.innerHTML = '';
+                    contentHex.style.filter = '';
+                    header.style.filter = '';
+                    PageUser();
+                    localStorage.setItem('SPARKCONCT', 'acces')
+                } else {
+                    ''
+                }
+
+            } else { '' }
+        }
+
+
+        /*.then(res => {
+            if (res.ok && res.acces == 'acces-accepter') {
+                contentHex.style.filter = '';
+                header.style.filter = '';
+                contentInp.style.zIndex = '';
+                contentConnect.innerHTML = '';
+                console.log(res.acces);
+                // PageUser();
+            } else {
+                console.log(res.json())
+            }
+        })*/
+
+    })
 
 }
+
 
 const newUserSignUp = () => {
     const userPseudo = document.getElementById('PSEUDO');
@@ -92,12 +145,28 @@ const newUserSignUp = () => {
         MDP2: '',
     }
 
+
     userPseudo.addEventListener('keyup', () => { newUserSpark.PSEUDO = userPseudo.value });
     userMail.addEventListener('keyup', () => { newUserSpark.EMAIL = userMail.value });
     userMDP.addEventListener('keyup', () => { newUserSpark.MDP = userMDP.value });
     userMDP2.addEventListener('keyup', () => { newUserSpark.MDP2 = userMDP2.value });
     submit.addEventListener('click', () => {
         console.log(newUserSpark);
+        newUserSpark.PSEUDO = userPseudo.value;
+        newUserSpark.EMAIL = userMail.value;
+        newUserSpark.MDP = userMDP.value;
+        newUserSpark.MDP2 = userMDP2.value;
+        /* let req = new XMLHttpRequest();
+ 
+         req.onreadystatechange = function () {
+             console.log(this)
+             req.readyState === 4 && req.status === 200 ?
+                 this.response : ''
+         }
+ 
+         req.open('POST', './BackEnd/PHP/index.php?redirAll=Unewuser', true);
+         req.send(JSON.stringify(newUserSpark))
+         */
         fetch(`./BackEnd/PHP/index.php?redirAll=Unewuser`, {
             method: 'POST',
             body: JSON.stringify(newUserSpark),
@@ -106,8 +175,9 @@ const newUserSignUp = () => {
             .then(data => {
                 if (data.ok && data.refus != 'acces' || data.refus == 'acces-denied') {
                     Alert.style.display = 'flex';
-                    Alert.style.background = '#ff3939'
+                    Alert.style.background = '#ff3939';
                     Alert.innerHTML = new MessageAlert().createMsgAlert()
+                    console.log(data)
                     setTimeout(() => {
                         Alert.innerHTML = '';
                         Alert.style.display = 'none';
