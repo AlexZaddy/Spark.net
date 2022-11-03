@@ -1,5 +1,11 @@
 body {
-    background-color: #E0E0E0;
+    background: #E0E0E0;
+    overflow: hidden;
+    //background-position: center;
+    height: 100%;
+    transition: 600ms;
+    background-blend-mode: multiply;
+    animation: ease-in-out 900ms TRANSIT;
 
     header {
         height: 5vh;

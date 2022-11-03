@@ -1,0 +1,71 @@
+.content-list {
+    width: 90%;
+    display: flex;
+
+    .listeUser {
+        width: 25%;
+        height: 100%;
+        background: #3C3939BF;
+        border: none;
+        border-radius: 5px;
+        padding: 0px 5px;
+
+        article {
+            display: flex;
+            width: 95%;
+            height: 4em;
+            align-items: center;
+            padding: 0px 10px;
+            background: #1B1818;
+            color: whitesmoke;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: 'Roboto';
+            margin: 4px 0;
+            justify-content: space-between;
+
+            button {
+                transition: 400ms;
+                background: #201E1E;
+                border: none;
+                border-radius: 2px;
+                width: 10%;
+                height: 50%;
+                color: white;
+                box-shadow: #000 0px 0px 7px 1px;
+
+                &:hover {
+                    transition: 400ms;
+                    color: #1B1818;
+                    background: white;
+                }
+            }
+        }
+    }
+
+    .listeNews {
+        width: 70%;
+        background: #3C3939BF;
+        border: none;
+        border-radius: 5px;
+        margin-left: 10%;
+    }
+}
+
+.backArrow {
+    width: 2%;
+    padding: 1rem 2rem;
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 20% 100%, 0 50%);
+    margin-right: 88%;
+    margin-bottom: 2%;
+    background-color: whitesmoke;
+    box-shadow: 8px 8px 13px 0px #00000040;
+
+    p {
+        font-family: 'Roboto';
+        font-size: 18px;
+    }
+
+}
