@@ -1,0 +1,32 @@
+#navigation {
+    transition: 300ms;
+    position: fixed;
+    top: 85%;
+    left: 48%;
+    width: 5%;
+    height: 5%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: 400ms ease-in LOGIN;
+    background: white;
+    border-radius: 5px;
+    box-shadow: black 0px 1px 4px -1px;
+
+
+    ul {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+
+        li {
+            width: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            align-items: center;
+        }
+    }
+}

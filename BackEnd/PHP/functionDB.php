@@ -67,4 +67,136 @@ function inGame($nameGame){
     $cnn->execute([$nameGame]);
     $DataGame = $cnn->fetchALL(PDO::FETCH_ASSOC);
     echo json_encode($DataGame);
+    $cnn->closeCursor();
+}
+
+function abonement($mail,$game) {
+    include('conncetDB.php');
+    include('Reqresponse.php');
+
+    $cnn = $bdd->prepare('SELECT IDUSER, MAIL FROM user WHERE MAIL=?');
+    $cnn->execute([$mail]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+    $USER = $data[0]['IDUSER'];
+     
+    $cnn = $bdd->prepare('SELECT idGame , nameGame FROM game WHERE nameGame=?');
+    $cnn->execute([$game]);
+
+    $data1 = $cnn->fetchAll(PDO::FETCH_ASSOC);
+    $GAME = $data1[0]['idGame'];
+
+    $cnn = $bdd->prepare('SELECT * FROM relationgameuser WHERE idGame = ? AND IDUSER = ?');
+    $cnn->execute([$GAME,$USER]);
+    $data2 = $cnn->fetchAll(PDO::FETCH_ASSOC);
+    if(!empty($data2)){
+        echo json_encode($Response->{'refus'});
+    }else{
+        $cnn = $bdd->prepare('INSERT INTO relationgameuser (IDUSER,IDGAME) VALUES(?,?)');
+        $cnn->execute([$USER,$GAME]);
+        echo json_encode($Response->{'acces'});
+    }
+    /*
+    $cnn = $bdd->prepare('INSERT INTO relationgameuser (IDUSER,IDGAME) VALUES(?,?)');
+    $cnn->execute([$USER,$GAME]);
+
+    */
+    $cnn->closeCursor();
+}
+
+function abonneCheck($mail,$game){
+    include('conncetDB.php');
+    include('Reqresponse.php');
+
+    $cnn = $bdd->prepare('SELECT IDUSER, MAIL FROM user WHERE MAIL=?');
+    $cnn->execute([$mail]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+
+    $IDUSER = $data[0]['IDUSER'];
+
+    $cnn = $bdd->prepare('SELECT idGame , nameGame FROM game WHERE nameGame=?');
+    $cnn->execute([$game]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+
+    $IDGAME = $data[0]['idGame'];
+
+
+   $cnn = $bdd->prepare('SELECT * FROM relationgameuser WHERE idGame = ? AND IDUSER = ?');
+   $cnn->execute([$IDGAME,$IDUSER]);
+   $data2 = $cnn->fetchAll(PDO::FETCH_ASSOC);
+   if(!empty($data2)){
+       echo json_encode($Response->{'refus'});
+   }
+   $cnn->closeCursor();
+}
+
+function addFriends($user1, $user2) {
+    include('conncetDB.php');
+    include('Reqresponse.php');
+    
+    if(!empty($user1) && !empty($user2)){
+        $user1 = htmlspecialchars($user1);
+        $user2 = htmlspecialchars($user2);
+//
+        $cnn = $bdd->prepare('SELECT IDUSER FROM `user` WHERE mail = ?');
+        $cnn->execute([$user1]);
+        $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+        $IDUSER1 = $data[0]['IDUSER'];
+//     
+        $cnn = $bdd->prepare('SELECT IDUSER FROM `user` WHERE PSEUDO = ?');
+        $cnn->execute([$user2]);
+        $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+        $IDUSER2 = $data[0]['IDUSER'];
+        $demamnde = 'attente';
+
+        if($IDUSER1 != $IDUSER2 && $IDUSER1 != '' && $IDUSER2 != ''){
+        $cnn = $bdd->prepare('INSERT INTO amis (user1id, user2id,invitation) VALUES (?,?,?)');
+        $cnn->execute([$IDUSER1,$IDUSER2,$demamnde]);
+        echo json_encode($Response->{'refus'});
+        $cnn->closeCursor();
+        }else{
+        $cnn->closeCursor();
+        }
+    }
+}
+
+function contact($mail){
+    include('conncetDB.php');
+    include('Reqresponse.php');
+
+    if(!empty($mail) && $mail != ''){
+        $cnn = $bdd->prepare('SELECT IDUSER FROM `user` WHERE mail = ?');
+        $cnn->execute([$mail]);
+        $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+        $ID = $data[0]['IDUSER'];
+
+        $cnn = $bdd->prepare('SELECT amis.invitation, user.PSEUDO FROM `amis` INNER JOIN user ON user.IDUSER = amis.user1id  WHERE user2id = ?');
+        $cnn->execute([$ID]);
+        $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($data);
+        $cnn->closeCursor();
+        
+    } 
+}
+
+function acceptIvitation($mail ,$nameUSER2) {
+    include('conncetDB.php');
+    include('Reqresponse.php');
+     
+    $ACCES = 'acces';
+    $cnn = $bdd->prepare('SELECT IDUSER FROM `user` WHERE mail = ?');
+    $cnn->execute([$mail]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+    $IDUSER1 = $data[0]['IDUSER'];
+
+    $cnn = $bdd->prepare('SELECT IDUSER FROM `user` WHERE PSEUDO = ?');
+    $cnn->execute([$nameUSER2]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+    $IDUSER2 = $data[0]['IDUSER'];
+
+    $cnn = $bdd->prepare('UPDATE amis SET `invitation` = ? WHERE user1id = ? and user2id = ?');
+    $cnn->execute([$ACCES, $IDUSER1,$IDUSER2]);
+    $cnn->closeCursor();
+
+    echo json_encode($Response->{'acces'});
+
 }

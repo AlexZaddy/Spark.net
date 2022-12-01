@@ -1,15 +1,17 @@
 const inpEmail = document.querySelector('.Email')
 const contentInp = document.querySelector('.content-input')
-const contentConnect = document.querySelector('.content-connect')
-let contentHex = document.querySelector('.content-hex');
+const contentConnect = document.querySelector('.content-connect');
 const header = document.querySelector('header');
 const Alert = document.getElementById('Alert');
 
-
+let dataLocal = {
+    acces: { acces: '', page: '' },
+    Mail: '',
+    DisplayMode: '',
+}
 
 // afficher formulaire de connexion
 inpEmail.addEventListener('click', () => {
-    contentHex.style.filter = 'blur(1rem)';
     header.style.filter = 'blur(1rem)';
     contentInp.style.zIndex = '0';
     contentConnect.innerHTML = new Login().createLogin()
@@ -27,7 +29,6 @@ const arrowBack = () => {
     arrow?.addEventListener('click', () => {
         divLogin.style.opacity = 0;
         contentConnect.innerHTML = '';
-        contentHex.style.filter = '';
         header.style.filter = '';
 
     })
@@ -51,7 +52,6 @@ const pageSignUp = () => {
 //changer de formulaire (formulaire connexion)
 const pageSignIn = () => {
     const signIn = document.querySelector('.sign-in');
-
     signIn?.addEventListener('click', () => {
         contentConnect.innerHTML = new Login().createLogin()
         arrowBack();
@@ -66,6 +66,8 @@ const connectUser = () => {
     const userMail = document.getElementById('MAIL');
     const userMDP = document.getElementById('MDP');
     const submit = document.querySelector('.submit');
+    const NavBarre = document.getElementById('navigation');
+
 
     let userData = {
 
@@ -78,7 +80,9 @@ const connectUser = () => {
 
     submit.addEventListener('click', () => {
         userData.EMAIL = userMail.value;
-        userData.MDP = userMDP.value
+        userData.MDP = userMDP.value;
+
+
 
 
         req = new XMLHttpRequest();
@@ -101,10 +105,14 @@ const connectUser = () => {
                     const divLogin = document.querySelector('.login')
                     divLogin.style.opacity = 0;
                     contentConnect.innerHTML = '';
-                    contentHex.style.filter = '';
                     header.style.filter = '';
+                    dataLocal.acces.acces = 'acces';
+                    dataLocal.Mail = userMail.value;
+                    localStorage.setItem('SPARKCONCT', JSON.stringify(dataLocal))
+                    MAIL = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
+                    NavBarre.style.display = 'flex'
                     PageUser();
-                    localStorage.setItem('SPARKCONCT', 'acces')
+                    return dataLocal
                 } else {
                     ''
                 }

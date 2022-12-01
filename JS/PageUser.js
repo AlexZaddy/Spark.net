@@ -1,15 +1,9 @@
-const hex1 = document.querySelector('.hex1');
-const hex2 = document.querySelector('.hex2');
-const hex3 = document.querySelector('.hex3');
-const hex4 = document.querySelector('.hex4');
-const hex5 = document.querySelector('.hex5');
-const hex6 = document.querySelector('.hex6');
-const hex7 = document.querySelector('.hex7');
 const head = document.querySelector('header');
 const main = document.querySelector('main');
 const body = document.querySelector('body');
 const searchBarre = document.querySelector('.searchBarre');
 const idSearch = document.getElementById('resultSearch');
+let NamePageGame = '';
 
 
 
@@ -33,32 +27,29 @@ const reqGames = () => {
 }
 
 
+const fullscreen = () => {
+    ERC = document.querySelector('.ERC')
+    ERC.addEventListener('click', async () => {
+        if (document.fullscreenElement) {
+            dataLocal.DisplayMode = '!fullscreen'
+            localStorage.setItem('SPARKCONCT', JSON.stringify(dataLocal))
+            await document.exitFullscreen()
+        } else {
+            dataLocal.DisplayMode = 'fullscreen'
+            localStorage.setItem('SPARKCONCT', JSON.stringify(dataLocal))
+            await document.documentElement.requestFullscreen();
+        }
+
+    })
+}
 
 const PageUser = async () => {
+    const NavBarre = document.getElementById('navigation');
 
-    const animeHexagone = () => {
-        hex1.style.transform = 'translateY(65.2vh) translateX(-42.8vh)';
-        hex2.style.transform = 'translateY(65.3vh)';
-        hex2.style.translate = '44.7vh';
-        hex3.style.translate = '-125vh';
-        hex5.style.transform = 'translateY(-65.6vh) translateX(-40.8vh)';
-        hex6.style.transform = 'translateY(-65.6vh)';
-        hex6.style.translate = '44.7vh';
-        hex7.style.translate = '125vh';
-        hex4.style.display = 'none';
-        head.innerHTML = '';
-    }
-
-
-    const searchShow = () => {
-        setTimeout(() => {
-            contentHex.style.display = 'none'
-        }, 1000)
-        main.innerHTML = new searchGame().searchBarre();
-    }
+    header.innerHTML = '';
+    main.innerHTML = new searchGame().searchBarre();
+    NavBarre.style.display = 'flex'
     reqGames()
-    animeHexagone();
-    searchShow();
 }
 
 
@@ -101,20 +92,37 @@ const showImg = (Tab) => {
 
     articles.forEach(article => {
         article.addEventListener('mouseover', () => {
-            Tab?.forEach(elmt => {
-                if (elmt.idGame) {
-                    body.style.background = ``;
-                    body.style.background = `url(${elmt.imgGame})`;
-                    //console.log(body.style.background);
-                }
-                //console.log(elmt)
-            })
-
+            filtreArticle(article)
         })
     })
 
+    const filtreArticle = (article) => {
+
+        Tab?.forEach(elmt => {
+            if (elmt.idGame && elmt.idGame == article.attributes.id.value) {
+                body.style.background = `url(${elmt.imgGame})`;
+            }
+        })
+
+        /*
+         Tab?.forEach(elmt => {
+             if (parseInt(elmt.idGame) == parseInt(article.attributes?.id)) {
+                 body.style.background = ``;
+                 body.style.background = `url(${elmt.imgGame})`;
+                 console.log(elmt.idGame);
+             } else {
+                 console.log(elmt)
+ 
+             }
+         })*/
+    }
+
     articles.forEach(article => {
-        article.addEventListener('click', () => { pageGame(article.innerText.toLowerCase()) })
+        article.addEventListener('click', () => {
+            pageGame(article.innerText.toLowerCase());
+            NamePageGame = article.innerText.toLowerCase()
+            return NamePageGame = NamePageGame.trim()
+        })
     })
 
 }
@@ -144,8 +152,8 @@ const pageGame = (nameGame) => {
 
     const cnn = new XMLHttpRequest();
     cnn.open('POST', './BackEnd/PHP/index.php?redirAll=gamePage', true);
-    cnn.send(JSON.stringify({ NAMEGAME: nameGame }))
-        ;
+    cnn.send(JSON.stringify({ NAMEGAME: nameGame }));
+
     cnn.onreadystatechange = () => {
         if (cnn.readyState === 4 && cnn.status === 200) {
             gameMedia = JSON.parse(cnn.response)
@@ -154,7 +162,14 @@ const pageGame = (nameGame) => {
             })
         }
     }
-    backArrow()
+    /// attendre resolve function pagegame
+    setTimeout(() => {
+        aboCheck();
+        addUserFriends();
+    }, 400)
+    abonnement();
+
+    backArrow();
 }
 
 
@@ -163,16 +178,56 @@ const backArrow = () => {
 
 
     const searchShow = () => {
-        setTimeout(() => {
-            contentHex.style.display = 'none'
-        }, 1000)
         main.innerHTML = new searchGame().searchBarre();
     }
+
     arrowBack.addEventListener('click', () => {
         searchShow()
         main.style.marginTop = '15%';
+        body.style.background = '#e0e0e0';
     })
 
+}
+
+const abonnement = () => {
+    const abonne = document.querySelector('.abonne');
+
+    abonne.addEventListener('click', () => {
+        const cnn = new XMLHttpRequest();
+        cnn.onreadystatechange = function () {
+            if (cnn.readyState === 4 && cnn.status === 200) {
+                const Res = JSON.parse(cnn.response);
+                if (Res.refus == 'acces-denied') {
+                    abonne.innerHTML = 'Abonné';
+                } else {
+                    ''
+                }
+            }
+        }
+        cnn.open('POST', './BackEnd/PHP/index.php?redirAll=abonne', true);
+        cnn.send(JSON.stringify({ Mail: MAIL, NAMEGAME: NamePageGame }));
+
+
+    })
+}
+
+
+const aboCheck = () => {
+    const cnn = new XMLHttpRequest();
+    const abonne = document.querySelector('.abonne');
+    let mail = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
+    cnn.onreadystatechange = function () {
+        if (cnn.status == 200 && cnn.readyState == 4) {
+            if (cnn.response && JSON.parse(cnn.response) != '') {
+                abonne.innerHTML = 'Abonné';
+                console.log(JSON.parse(cnn.response))
+            } else {
+                ''
+            }
+        }
+    }
+    cnn.open('POST', './BackEnd/PHP/index.php?redirAll=aboCheck', true);
+    cnn.send(JSON.stringify({ Mail: mail, NAMEGAME: NamePageGame }));
 }
 
 class searchGame {
@@ -216,8 +271,9 @@ class GAME {
     contentArticle() {
         return `
         <div class="backArrow">
-        <p>retour</p>
+        <p>Retour</p>
         </div>
+        <button class="abonne">s'abonner</button>
          <div class="content-list">
             <div class="listeUser">
             </div>
@@ -233,7 +289,7 @@ class GAME {
         return `
         <article>
             <p>${this.name}</p>
-            <button><i class="fa-solid fa-user-plus"></i></button>
+            <button class="addFriends" value="${this.name}"><i class="fa-solid fa-user-plus"></i></button>
         </article>
         `
     }

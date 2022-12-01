@@ -27,6 +27,27 @@ switch ($url) {
         inGame($data->{'NAMEGAME'});
         break;
 
+    case 'abonne':
+        $data = json_decode(file_get_contents('php://input'));
+        abonement($data->{'Mail'} , $data->{'NAMEGAME'});
+        break;
+    case 'aboCheck':
+       $data = json_decode(file_get_contents('php://input'));
+        abonneCheck($data->{'Mail'} , $data->{'NAMEGAME'});
+        break;
+
+    case 'addFriends': 
+        $data = json_decode(file_get_contents('php://input'));
+        addFriends($data->{'MAILUSER1'},$data->{'NAMEUSER2'});
+        break;
+    case 'contact':
+        $data = json_decode(file_get_contents('php://input'));
+        contact($data->{'MAIL'});
+        break;
+    case 'aceeptInvite':
+        $data = json_decode(file_get_contents('php://input'));
+        acceptIvitation($data->{'MAIL'} ,$data->{'nameUSER2'});
+        break;
     default: 
         $err =  [ "err" => 'error'];
         echo json_encode($err);

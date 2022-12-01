@@ -1,5 +1,6 @@
-USERCONECT = localStorage.getItem('SPARKCONCT');
+let USERCONECT = JSON.parse(localStorage.getItem('SPARKCONCT')).acces.acces
+let MAIL = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
 
-USERCONECT == 'acces' ? setTimeout(() => {
+USERCONECT == 'acces' && MAIL != '' ? setTimeout(() => {
     PageUser();
 }, 4100) : '';

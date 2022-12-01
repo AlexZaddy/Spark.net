@@ -1,11 +1,12 @@
 body {
-    background: #E0E0E0;
+    background: #e0e0e0;
     overflow: hidden;
-    //background-position: center;
     height: 100%;
     transition: 600ms;
     background-blend-mode: multiply;
     animation: ease-in-out 900ms TRANSIT;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
 
     header {
         height: 5vh;
