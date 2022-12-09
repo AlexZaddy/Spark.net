@@ -48,6 +48,10 @@ switch ($url) {
         $data = json_decode(file_get_contents('php://input'));
         acceptIvitation($data->{'MAIL'} ,$data->{'nameUSER2'});
         break;
+    case 'actualite': 
+        $data = json_decode(file_get_contents('php://input'));
+        actuGame($data->{'Game'});
+        break;
     default: 
         $err =  [ "err" => 'error'];
         echo json_encode($err);

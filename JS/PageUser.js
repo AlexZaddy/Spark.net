@@ -166,6 +166,7 @@ const pageGame = (nameGame) => {
     setTimeout(() => {
         aboCheck();
         addUserFriends();
+        reqActu();
     }, 400)
     abonnement();
 

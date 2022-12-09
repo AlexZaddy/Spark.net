@@ -377,6 +377,58 @@ main .content-search .searchBarre {
   border: none;
   border-radius: 5px;
   margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0% 5px;
+}
+.content-list .listeNews article {
+  background: #1b1818;
+  width: 100%;
+  height: 10vh;
+  border: none;
+  border-radius: 5px;
+  margin: 5px 0;
+  color: white;
+  font-family: "Roboto";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: black 0px 0px 5px 1px;
+}
+.content-list .listeNews article .contenu {
+  margin: 0 3%;
+}
+.content-list .listeNews article .date {
+  color: rgba(255, 255, 255, 0.5803921569);
+  margin-left: 92%;
+}
+.content-list .listeNews article div {
+  width: 50%;
+  display: flex;
+  margin: 0 25%;
+}
+.content-list .listeNews article div hr {
+  color: white;
+  margin: 0 5px;
+}
+.content-list .listeNews article div button {
+  border: none;
+  width: 50%;
+  height: 100%;
+  font-size: 14px;
+  font-family: Roboto;
+  background: transparent;
+  color: white;
+  transition: 400ms;
+}
+.content-list .listeNews article div button span {
+  margin: 0 14%;
+}
+.content-list .listeNews article div button:hover {
+  border-radius: 5px;
+  background: #232222;
+  transition: 400ms;
 }
 
 .backArrow {

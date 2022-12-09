@@ -200,3 +200,21 @@ function acceptIvitation($mail ,$nameUSER2) {
     echo json_encode($Response->{'acces'});
 
 }
+
+function actuGame($game){
+    include('conncetDB.php');
+    include('Reqresponse.php');
+
+    $cnn = $bdd->prepare('SELECT idGame , nameGame FROM game WHERE nameGame=?');
+    $cnn->execute([$game]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+
+    $IDGAME = $data[0]['idGame'];
+
+
+    $cnn = $bdd->prepare('SELECT * FROM actualite WHERE idGame=?');
+    $cnn->execute([$IDGAME]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($data);
+}

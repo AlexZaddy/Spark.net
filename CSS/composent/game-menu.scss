@@ -51,6 +51,67 @@
         border: none;
         border-radius: 5px;
         margin-left: 10%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0% 5px;
+
+        article {
+            background: #1b1818;
+            width: 100%;
+            height: 10vh;
+            border: none;
+            border-radius: 5px;
+            margin: 5px 0;
+            color: white;
+            font-family: "Roboto";
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: black 0px 0px 5px 1px;
+
+            .contenu{
+                margin: 0 3%;
+            }
+
+            .date{
+                color: #ffffff94;
+                margin-left: 92%;
+            }
+
+            div{
+                width: 50%;
+                display: flex;
+                margin: 0 25%;
+
+                hr{
+                    color: white;
+                    margin: 0 5px;
+                }
+
+                button{
+                border: none;
+                width: 50%;
+                height: 100%;
+                font-size: 14px;
+                font-family: Roboto;
+                background: transparent;
+                color: white;
+                transition: 400ms;
+
+                    span{
+                        margin: 0 14%;
+                    }
+
+                    &:hover{
+                        border-radius: 5px;
+                        background: #232222;
+                        transition: 400ms;
+
+                    }
+                }
+            }
+        }
     }
 }
 
