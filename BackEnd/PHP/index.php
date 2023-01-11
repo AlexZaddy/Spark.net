@@ -52,6 +52,27 @@ switch ($url) {
         $data = json_decode(file_get_contents('php://input'));
         actuGame($data->{'Game'});
         break;
+    case 'loading':
+        $data = json_decode(file_get_contents('php://input'));
+        loading($data->{'GAME'});
+        break;
+    case 'recupUser': 
+        $data = json_decode(file_get_contents('php://input'));
+        recupUser($data->{'MAIL'});
+        break;
+    case 'newCom':
+        $data = json_decode(file_get_contents('php://input'));
+        var_dump($data);
+        newCom($data->{'IDUser1'}, $data->{'messages'}, $data->{'date'}, $data->{'IDActu'});
+        break;
+    case 'recupCom':
+        $data = json_decode(file_get_contents('php://input'));
+        recupCommentActu($data->{'IDActu'});
+        break;
+    case 'userInfo':
+        $data = json_decode(file_get_contents('php://input'));
+        infoUser($data->{'EMAIL'});
+        break;
     default: 
         $err =  [ "err" => 'error'];
         echo json_encode($err);

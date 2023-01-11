@@ -27,6 +27,7 @@ const reqGames = () => {
 }
 
 
+
 const fullscreen = () => {
     ERC = document.querySelector('.ERC')
     ERC.addEventListener('click', async () => {
@@ -119,9 +120,12 @@ const showImg = (Tab) => {
 
     articles.forEach(article => {
         article.addEventListener('click', () => {
-            pageGame(article.innerText.toLowerCase());
             NamePageGame = article.innerText.toLowerCase()
+            NamePageGame = NamePageGame.trim()
+            /*pageGame(article.innerText.toLowerCase());
             return NamePageGame = NamePageGame.trim()
+            */
+            document.location.href = `Page-Game.html?Game=${NamePageGame}`;
         })
     })
 
@@ -141,95 +145,6 @@ const infoGame = (json) => {
 
 }
 
-
-const pageGame = (nameGame) => {
-    let gameMedia = null
-    main.innerHTML = '';
-    main.innerHTML = new GAME().contentArticle();
-
-    const listField = document.querySelector('.listeUser')
-    main.style.marginTop = '0';
-
-    const cnn = new XMLHttpRequest();
-    cnn.open('POST', './BackEnd/PHP/index.php?redirAll=gamePage', true);
-    cnn.send(JSON.stringify({ NAMEGAME: nameGame }));
-
-    cnn.onreadystatechange = () => {
-        if (cnn.readyState === 4 && cnn.status === 200) {
-            gameMedia = JSON.parse(cnn.response)
-            gameMedia.forEach(game => {
-                listField.innerHTML += new GAME(game).listeUser();
-            })
-        }
-    }
-    /// attendre resolve function pagegame
-    setTimeout(() => {
-        aboCheck();
-        addUserFriends();
-        reqActu();
-    }, 400)
-    abonnement();
-
-    backArrow();
-}
-
-
-const backArrow = () => {
-    const arrowBack = document.querySelector('.backArrow');
-
-
-    const searchShow = () => {
-        main.innerHTML = new searchGame().searchBarre();
-    }
-
-    arrowBack.addEventListener('click', () => {
-        searchShow()
-        main.style.marginTop = '15%';
-        body.style.background = '#e0e0e0';
-    })
-
-}
-
-const abonnement = () => {
-    const abonne = document.querySelector('.abonne');
-
-    abonne.addEventListener('click', () => {
-        const cnn = new XMLHttpRequest();
-        cnn.onreadystatechange = function () {
-            if (cnn.readyState === 4 && cnn.status === 200) {
-                const Res = JSON.parse(cnn.response);
-                if (Res.refus == 'acces-denied') {
-                    abonne.innerHTML = 'Abonné';
-                } else {
-                    ''
-                }
-            }
-        }
-        cnn.open('POST', './BackEnd/PHP/index.php?redirAll=abonne', true);
-        cnn.send(JSON.stringify({ Mail: MAIL, NAMEGAME: NamePageGame }));
-
-
-    })
-}
-
-
-const aboCheck = () => {
-    const cnn = new XMLHttpRequest();
-    const abonne = document.querySelector('.abonne');
-    let mail = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
-    cnn.onreadystatechange = function () {
-        if (cnn.status == 200 && cnn.readyState == 4) {
-            if (cnn.response && JSON.parse(cnn.response) != '') {
-                abonne.innerHTML = 'Abonné';
-                console.log(JSON.parse(cnn.response))
-            } else {
-                ''
-            }
-        }
-    }
-    cnn.open('POST', './BackEnd/PHP/index.php?redirAll=aboCheck', true);
-    cnn.send(JSON.stringify({ Mail: mail, NAMEGAME: NamePageGame }));
-}
 
 class searchGame {
     constructor(Data) {

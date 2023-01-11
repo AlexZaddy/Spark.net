@@ -212,8 +212,69 @@ function actuGame($game){
     $IDGAME = $data[0]['idGame'];
 
 
-    $cnn = $bdd->prepare('SELECT * FROM actualite WHERE idGame=?');
+    $cnn = $bdd->prepare('SELECT actualite.idActu, actualite.idGame, actualite.idUser, actualite.newActu, 
+                                actualite.dateActu, actualite.like, actualite.dislike, actualite.Type,user.PSEUDO FROM actualite 
+                                LEFT JOIN user 
+                                ON user.IDUSER = actualite.idUser 
+                                WHERE idGame=?
+                                ');
     $cnn->execute([$IDGAME]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($data);
+}
+
+function loading($nameame){
+    include('conncetDB.php');
+    include('Reqresponse.php');
+
+    $cnn = $bdd->prepare('SELECT * FROM `game` WHERE namegame = ?');
+    $cnn->execute([$nameame]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+    
+    echo json_encode($data);
+}
+
+function recupUser($mail){
+    include('conncetDB.php');
+    include('Reqresponse.php');
+
+    $cnn = $bdd->prepare('SELECT PSEUDO, IDUSER FROM `user` WHERE MAIL=?');
+    $cnn->execute([$mail]);
+    
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($data);
+}
+
+function recupCommentActu($idActu){
+    include('conncetDB.php');
+    include('Reqresponse.php');
+
+    $cnn = $bdd->prepare('SELECT commentaire.comment , commentaire.Date , user.PSEUDO FROM `commentaire` RIGHT JOIN user ON  user.IDUSER = commentaire.idUser WHERE idActu =?');
+
+    $cnn->execute([$idActu]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($data);
+}
+
+function newCom ($idUSer, $messages, $date, $idActu) {
+    include('conncetDB.php');
+    include('Reqresponse.php');
+
+    $cnn = $bdd->prepare('INSERT INTO commentaire (idActu, idUser, comment, Date) VALUES (?,?,?,?)');
+    $cnn->execute([$idActu, $idUSer, $messages, $date]);
+
+    echo json_encode($Response->{'acces'});
+}
+
+function infoUser($email){
+    include('conncetDB.php');
+
+    $cnn = $bdd->prepare('SELECT PSEUDO FROM `user` WHERE MAIL=?');
+    $cnn->execute([$email]);
+
     $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($data);

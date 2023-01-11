@@ -8,6 +8,7 @@ let dataLocal = {
     acces: { acces: '', page: '' },
     Mail: '',
     DisplayMode: '',
+    UserPseudo:'',
 }
 
 // afficher formulaire de connexion
@@ -112,6 +113,7 @@ const connectUser = () => {
                     MAIL = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
                     NavBarre.style.display = 'flex'
                     PageUser();
+                    console.log()
                     return dataLocal
                 } else {
                     ''
