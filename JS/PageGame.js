@@ -117,6 +117,10 @@ class GAME {
         <button class="abonne">s'abonner</button>
          <div class="content-list">
             <div class="listeUser">
+                <div class="search-user">
+                    <input type="text" placeholder="RECHERCHE">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
             </div>
 
             <div class="listeNews">

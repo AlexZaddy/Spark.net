@@ -73,6 +73,10 @@ switch ($url) {
         $data = json_decode(file_get_contents('php://input'));
         infoUser($data->{'EMAIL'});
         break;
+    case 'addActu':
+        $data = json_decode(file_get_contents('php://input'));
+            addActu($data->{'NAMEGAME'},$data->{'USERNAME'}, $data->{'comACTU'},$data->{'DATE'} );
+        break;
     default: 
         $err =  [ "err" => 'error'];
         echo json_encode($err);

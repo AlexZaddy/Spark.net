@@ -44,13 +44,14 @@ const fullscreen = () => {
     })
 }
 
-const PageUser = async () => {
-    const NavBarre = document.getElementById('navigation');
+const PageUser = () => {
+    const main = document.querySelector('main');
 
     header.innerHTML = '';
     main.innerHTML = new searchGame().searchBarre();
-    NavBarre.style.display = 'flex'
-    reqGames()
+    const NavBarre = document.getElementById('navigation');
+    NavBarre.style.display = 'flex';
+    reqGames();
 }
 
 
@@ -158,13 +159,17 @@ class searchGame {
 
     searchBarre() {
         return `
+        <div id="content-logo">
+            
+        </div>
         <div class="content-search">
             <input class="searchBarre" type="text" placeholder="Recherche" onfocus="search()">
+            
         </div>
         <div id="resultSearch">
             
         </div>
-        `
+        `;
     }
 
     resultSearch() {

@@ -22,6 +22,7 @@ const deconnect = () => {
     const disconnect = document.querySelector('.deconnect');
     disconnect?.addEventListener('click', () => {
         dataLocal.Mail = "";
+        dataLocal.acces.acces = "";
         localStorage.setItem('SPARKCONCT', JSON.stringify(dataLocal));
         this.location.reload()
     })

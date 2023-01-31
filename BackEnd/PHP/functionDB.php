@@ -279,3 +279,26 @@ function infoUser($email){
 
     echo json_encode($data);
 }
+
+function addActu($nameGame, $username , $ACTU , $DATE){
+    include('conncetDB.php');
+
+    $cnn = $bdd->prepare('SELECT IDUSER FROM `user` WHERE PSEUDO=?');
+    $cnn->execute([$username]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $cnn = $bdd->prepare('SELECT idGame FROM `game` WHERE nameGame=?');
+    $cnn->execute([$nameGame]);
+    $data1 = $cnn->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $USER = $data[0]['IDUSER'];
+    $GAME = $data1[0]['idGame'];
+    $TYPE = 'userActu';
+
+    $cnn = $bdd->prepare('INSERT INTO `actualite` (idGame,idUser,newActu,dateActu,`like`,dislike,Type ) VALUES (?,?,?,?,?,?,?)');
+    $cnn->execute([$GAME,$USER,$ACTU,$DATE,'0','0',$TYPE]);
+
+    echo 'nice';
+}

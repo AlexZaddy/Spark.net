@@ -113,7 +113,6 @@ const connectUser = () => {
                     MAIL = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
                     NavBarre.style.display = 'flex'
                     PageUser();
-                    console.log()
                     return dataLocal
                 } else {
                     ''
@@ -177,6 +176,7 @@ const newUserSignUp = () => {
          req.open('POST', './BackEnd/PHP/index.php?redirAll=Unewuser', true);
          req.send(JSON.stringify(newUserSpark))
          */
+        if(newUserSpark.MDP === newUserSpark.MDP2 ){
         fetch(`./BackEnd/PHP/index.php?redirAll=Unewuser`, {
             method: 'POST',
             body: JSON.stringify(newUserSpark),
@@ -191,9 +191,22 @@ const newUserSignUp = () => {
                     setTimeout(() => {
                         Alert.innerHTML = '';
                         Alert.style.display = 'none';
-                    }, 4500);
+                    }, 
+                    900);
+                }else{
+                    Alert.style.display = 'flex';
+                    Alert.style.background = '#68ff00';
+                    Alert.innerHTML = new MessageAlert().createMsgAlertsucces()
+                    setTimeout(()=>{
+                        Alert.innerHTML = '';
+                        Alert.style.display = 'none';
+                    },4000)
                 }
             });
+        }else{
+            userMDP.style.border = 'red 1px solid';
+            userMDP2.style.border = 'red 1px solid';
+        }
     });
 }
 
@@ -221,13 +234,15 @@ class Login {
                     </label>
 
                     <div>
-                        <input type="button" class="unsubmit" value="VISITEUR">
                         <input type="button" class="submit" value="CONNEXION">
                     </div>
                     </form>
 
-                    <a href="#" class="sign-up">Je n'est pas de Compte</a>
-            </div> `
+                    <button class="btn-newU">
+                            <a href="#" class="sign-up">Je n'est pas de Compte</a>
+                    </button>
+            </div> 
+            `
     }
 
 
@@ -257,12 +272,12 @@ class Login {
 
 
                     <div>
-                        <input type="button" class="unsubmit" value="VISITEUR">
+                        <button class="sign-in">Se Connecter</button>
                         <input type="button" class="submit" value="INSCRIPTION">
                     </div>
                     </form>
 
-                    <a href="#" class="sign-in">Se Connecter</a>
+                    
                 </div> `
 
     }
@@ -281,5 +296,14 @@ class MessageAlert {
             <p>une erreur est survenue !</p>
         </div>
         `;
+    }
+
+    createMsgAlertsucces(){
+
+        return`
+        <div class="msg-Alert succes">
+        <p>Votre compte a bien été enregistrer !</p>
+    </div>
+        `
     }
 }

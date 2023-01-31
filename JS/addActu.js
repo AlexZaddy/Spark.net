@@ -40,7 +40,8 @@ const createModalAddActu = () => {
     cssModalNewActu.style.zIndex = '4';
     cssModalNewActu.style.boxShadow = ' black 0px 0px 4px 2px';
 
-    removeModalActu()
+    removeModalActu();
+    sendActu();
 }
 
 const removeModalActu = () => {
@@ -54,6 +55,30 @@ const removeModalActu = () => {
     commente();
     abonnement();
     backArrow();
+}
+
+
+const sendActu = () => {
+    comACTU = document.getElementById('comACTU');
+    const send = document.querySelector('.SendAddActu');
+    const cssContentModal = document.querySelector('.content-Modal');
+
+    send.addEventListener('click',() => {
+        console.log(comACTU.value);
+
+        reqAddActu(comACTU.value);
+        cssContentModal.remove();
+
+    })
+
+}
+
+const reqAddActu = (comACTU) => {
+
+    const req = new XMLHttpRequest();
+    req.open(true , './BackEnd/PHP/index.php?redirAll=addActu');
+    req.send(JSON.stringify({NAMEGAME:game , USERNAME : USERINFO[0].PSEUDO , comACTU : comACTU ,
+    DATE : new Date().toLocaleDateString('en-CA')}));
 }
 
 class AddActu {
@@ -82,7 +107,7 @@ class ModalNewAddActu {
             <div id="ModalNewActu">
             <h3>${USERINFO[0].PSEUDO}</h3>
             <hr class="separ">
-                <textarea></textarea>
+                <textarea id="comACTU"></textarea>
                 <hr class="separ">
                 <div>
                     <button class="cancel">Annuler</button>
