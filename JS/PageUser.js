@@ -164,7 +164,7 @@ class searchGame {
         </div>
         <div class="content-search">
             <input class="searchBarre" type="text" placeholder="Recherche" onfocus="search()">
-            
+            <i class="fa-solid fa-magnifying-glass"></i>
         </div>
         <div id="resultSearch">
             

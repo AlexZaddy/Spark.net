@@ -239,7 +239,7 @@ class Login {
                     </form>
 
                     <button class="btn-newU">
-                            <a href="#" class="sign-up">Je n'est pas de Compte</a>
+                            <a href="#" class="sign-up">Cree  Un  Compte</a>
                     </button>
             </div> 
             `
@@ -267,7 +267,7 @@ class Login {
                     </label>
 
                     <label for="password">
-                    <input id="MDP2" type="password" placeholder="Comfimer Mot de passe">
+                    <input id="MDP2" type="password" placeholder="Confirmer Mot de passe">
                     </label>
 
 
