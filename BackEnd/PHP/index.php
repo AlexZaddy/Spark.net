@@ -5,19 +5,22 @@ $url = $_GET['redirAll'];
 
 
 switch ($url) {
+    // user connexion à son compte
     case 'Uconnect':
     $data = json_decode(file_get_contents('php://input'));
     userConnect(htmlspecialchars($data->{'EMAIL'}),htmlspecialchars($data->{'MDP'}));
     //var_dump($data);
         break;
-    
-    case 'Uvisit':
-
-        break;
+    // inscprtion new user
     case 'Unewuser':
        $data = json_decode(file_get_contents('php://input'));
         //echo json_encode($data);
-        newUser(htmlspecialchars($data->{'PSEUDO'}),htmlspecialchars($data->{'EMAIL'}),htmlspecialchars($data->{'MDP'}));
+        if(!empty($data->{'EMAIL'}) && !empty($data->{'PSEUDO'}) && !empty($data->{'MDP'})){
+            newUser(htmlspecialchars($data->{'PSEUDO'}),htmlspecialchars($data->{'EMAIL'}),htmlspecialchars($data->{'MDP'}));
+        }else{
+            $err =  [ "err" => 'error'];
+            echo json_encode($err);
+        }
         break;
     case 'gameIn':
         readGame();

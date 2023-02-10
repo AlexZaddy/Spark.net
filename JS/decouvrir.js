@@ -44,7 +44,7 @@ const animeDecouvrir3 = () => {
     divCarroussel1.style.width = "100%";
     btnfinish.style.opacity = "0";
     contPresent.innerHTML = '';
-    contPresent.innerHTML = new Decouvrir().questionPresent();
+    contPresent.innerHTML = new Decouvrir().questionPresent()
   })
 }
 
@@ -124,26 +124,32 @@ class Decouvrir {
 
   eventduMois(){
     return `
-      <article event-Month>
-        <div>
+      <article class="art-event">
+        <div class="event-Month">
           <img src="./IMG-GAME/LOL-cover.jpg" alt="image de l'evenement en cours">
         </div>
+        <p>
         <i class="fa-solid fa-trophy"></i>
+        </p>
       </article>
       
-      <article event-Month>
-      <div>
-        <img src="./IMG-GAME/LOL-cover.jpg" alt="image de l'evenement en cours">
+      <article class="art-event">
+      <div class="event-Month">
+        <img src="./IMG-GAME/nfs-2015-cover.png" alt="image de l'evenement en cours">
       </div>
+      <p>
       <i class="fa-solid fa-trophy"></i>
+      </p>
     </article>
 
-    <article event-Month>
-    <div>
-      <img src="./IMG-GAME/LOL-cover.jpg" alt="image de l'evenement en cours">
-    </div>
-    <i class="fa-solid fa-trophy"></i>
-  </article>
+    <article class="art-event">
+      <div class="event-Month">
+        <img src="./IMG-GAME/Valorant-cover.jpg" alt="image de l'evenement en cours">
+      </div>
+      <p class="event-Text">
+      <i class="fa-solid fa-trophy"></i>
+      </p>
+    </article>
       
   `
   }

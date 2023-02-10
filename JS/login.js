@@ -92,7 +92,7 @@ const connectUser = () => {
 
         req.onreadystatechange = function () {
             if (req.readyState === 4 && req.status === 200) {
-                if (JSON.parse(req.response).refus == "acces-denied") {
+                if (JSON.parse(req.response).refus != "acces-accepter") {
 
                     Alert.style.display = 'flex';
                     Alert.style.background = '#ff3939';
@@ -160,7 +160,7 @@ const newUserSignUp = () => {
     userMDP.addEventListener('keyup', () => { newUserSpark.MDP = userMDP.value });
     userMDP2.addEventListener('keyup', () => { newUserSpark.MDP2 = userMDP2.value });
     submit.addEventListener('click', () => {
-        console.log(newUserSpark);
+      
         newUserSpark.PSEUDO = userPseudo.value;
         newUserSpark.EMAIL = userMail.value;
         newUserSpark.MDP = userMDP.value;
@@ -176,6 +176,7 @@ const newUserSignUp = () => {
          req.open('POST', './BackEnd/PHP/index.php?redirAll=Unewuser', true);
          req.send(JSON.stringify(newUserSpark))
          */
+        
         if(newUserSpark.MDP === newUserSpark.MDP2 ){
         fetch(`./BackEnd/PHP/index.php?redirAll=Unewuser`, {
             method: 'POST',
@@ -183,16 +184,15 @@ const newUserSignUp = () => {
         })
             .then(res => res.ok ? res.json() : '')
             .then(data => {
-                if (data.ok && data.refus != 'acces' || data.refus == 'acces-denied') {
+                if (data.ok && data.refus != 'acces' || data.refus == 'acces-denied' || !data.refus) {
                     Alert.style.display = 'flex';
                     Alert.style.background = '#ff3939';
                     Alert.innerHTML = new MessageAlert().createMsgAlert()
-                    console.log(data)
                     setTimeout(() => {
                         Alert.innerHTML = '';
                         Alert.style.display = 'none';
                     }, 
-                    900);
+                    4500);
                 }else{
                     Alert.style.display = 'flex';
                     Alert.style.background = '#68ff00';
@@ -200,7 +200,7 @@ const newUserSignUp = () => {
                     setTimeout(()=>{
                         Alert.innerHTML = '';
                         Alert.style.display = 'none';
-                    },4000)
+                    },4500)
                 }
             });
         }else{
@@ -293,7 +293,7 @@ class MessageAlert {
     createMsgAlert() {
         return `
         <div class="msg-Alert">
-            <p>une erreur est survenue !</p>
+            <p>Une Erreur est survenue lors de la connexion </p>
         </div>
         `;
     }
