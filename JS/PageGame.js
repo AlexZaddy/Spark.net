@@ -26,6 +26,7 @@ const pageGame = (nameGame) => {
 
     const listField = document.querySelector('.listeUser')
     main.style.marginTop = '0';
+    main.style.height = '100%';
 
     const cnn = new XMLHttpRequest();
     cnn.open('POST', './BackEnd/PHP/index.php?redirAll=gamePage', true);
@@ -34,9 +35,9 @@ const pageGame = (nameGame) => {
     cnn.onreadystatechange = () => {
         if (cnn.readyState === 4 && cnn.status === 200) {
             gameMedia = JSON.parse(cnn.response)
-            gameMedia.forEach(game => {
+           /* gameMedia.forEach(game => {
                 listField.innerHTML += new GAME(game).listeUser();
-            })
+            })*/
         }
     }
     /// attendre resolve function pagegame
@@ -116,12 +117,12 @@ class GAME {
         </div>
         <button class="abonne">s'abonner</button>
          <div class="content-list">
-            <div class="listeUser">
+           <!-- <div class="listeUser">
                 <div class="search-user">
                     <input type="text" placeholder="RECHERCHE">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
-            </div>
+            </div> -->
 
             <div class="listeNews">
             </div>

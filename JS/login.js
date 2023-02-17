@@ -62,6 +62,18 @@ const pageSignIn = () => {
     })
 }
 
+const alertPageLogRefus = () => {
+
+    Alert.style.display = 'flex';
+    Alert.style.background = '#ff3939';
+    Alert.innerHTML = new MessageAlert().createMsgAlert()
+    setTimeout(() => {
+        Alert.innerHTML = '';
+        Alert.style.display = 'none';
+    }, 4500);
+}
+
+
 // se connecter a son compte
 const connectUser = () => {
     const userMail = document.getElementById('MAIL');
@@ -86,23 +98,14 @@ const connectUser = () => {
 
 
 
-        req = new XMLHttpRequest();
+        const req = new XMLHttpRequest();
         req.open('POST', './BackEnd/PHP/index.php?redirAll=Uconnect', true);
         req.send(JSON.stringify(userData))
 
         req.onreadystatechange = function () {
-            if (req.readyState === 4 && req.status === 200) {
-                if (JSON.parse(req.response).refus != "acces-accepter") {
-
-                    Alert.style.display = 'flex';
-                    Alert.style.background = '#ff3939';
-                    Alert.innerHTML = new MessageAlert().createMsgAlert()
-                    setTimeout(() => {
-                        Alert.innerHTML = '';
-                        Alert.style.display = 'none';
-                    }, 4500);
-
-                } else if (JSON.parse(req.response).acces == "acces-accepter") {
+            console.log(req)
+            if (req.readyState == 4 && req.status == 200) {
+                if (JSON.parse(req.response).acces == "acces-accepter") {
                     const divLogin = document.querySelector('.login')
                     divLogin.style.opacity = 0;
                     contentConnect.innerHTML = '';
@@ -111,14 +114,17 @@ const connectUser = () => {
                     dataLocal.Mail = userMail.value;
                     localStorage.setItem('SPARKCONCT', JSON.stringify(dataLocal))
                     MAIL = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
-                    NavBarre.style.display = 'flex'
+                    NavBarre.style.display = 'flex';
                     PageUser();
                     return dataLocal
-                } else {
-                    ''
-                }
 
-            } else { '' }
+                } else {
+                    alertPageLogRefus();
+                } 
+
+            } else {
+                console.log('err: req non-init');
+             }
         }
 
 
@@ -184,10 +190,10 @@ const newUserSignUp = () => {
         })
             .then(res => res.ok ? res.json() : '')
             .then(data => {
-                if (data.ok && data.refus != 'acces' || data.refus == 'acces-denied' || !data.refus) {
+                if (data.ok && data.refus != 'acces' || data.refus == 'acces-denied' || data.err) {
                     Alert.style.display = 'flex';
                     Alert.style.background = '#ff3939';
-                    Alert.innerHTML = new MessageAlert().createMsgAlert()
+                    Alert.innerHTML = new MessageAlert().createMsgAlert();
                     setTimeout(() => {
                         Alert.innerHTML = '';
                         Alert.style.display = 'none';

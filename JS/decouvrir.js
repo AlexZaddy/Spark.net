@@ -129,7 +129,7 @@ class Decouvrir {
           <img src="./IMG-GAME/LOL-cover.jpg" alt="image de l'evenement en cours">
         </div>
         <p>
-        <i class="fa-solid fa-trophy"></i>
+          <img src="./Logo-Spark/S.png" >
         </p>
       </article>
       
@@ -138,7 +138,7 @@ class Decouvrir {
         <img src="./IMG-GAME/nfs-2015-cover.png" alt="image de l'evenement en cours">
       </div>
       <p>
-      <i class="fa-solid fa-trophy"></i>
+        <img src="./Logo-Spark/S.png" >
       </p>
     </article>
 
@@ -147,7 +147,7 @@ class Decouvrir {
         <img src="./IMG-GAME/Valorant-cover.jpg" alt="image de l'evenement en cours">
       </div>
       <p class="event-Text">
-      <i class="fa-solid fa-trophy"></i>
+        <img src="./Logo-Spark/S.png" >
       </p>
     </article>
       

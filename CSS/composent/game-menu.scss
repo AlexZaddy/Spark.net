@@ -1,6 +1,10 @@
+
 .content-list {
-    width: 90%;
+    width: 100%;
     display: flex;
+    justify-content: center;
+    height: 100%;
+    background: linear-gradient(360deg, #1B1818 70%, rgba(217, 217, 217, 0) 100%);
 
     .listeUser {
         width: 25%;
@@ -81,10 +85,10 @@
     }
 
     .listeNews {
-        width: 70%;
+        width: 60%;
         border: none;
         border-radius: 5px;
-        margin-left: 10%;
+        //margin-left: 10%;
         display: flex;
         flex-direction: column;
         align-items: center;
