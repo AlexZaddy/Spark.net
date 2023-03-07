@@ -1,5 +1,5 @@
-import { PageUser } from "../JS/PageUser.js";
-import { initDecouvrir } from "../JS/decouvrir.js";
+import { PageUser } from "./PageUser.js";
+import { initDecouvrir } from "./decouvrir.js";
 initDecouvrir();
 
 const inpEmail = document.querySelector('.Email')
