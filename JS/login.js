@@ -1,4 +1,4 @@
-import { PageUser } from "./PageUser";
+import { PageUser } from "JS/PageUser";
 import { initDecouvrir } from "./decouvrir";
 initDecouvrir()
 
