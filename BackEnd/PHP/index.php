@@ -80,6 +80,15 @@ switch ($url) {
         $data = json_decode(file_get_contents('php://input'));
             addActu($data->{'NAMEGAME'},$data->{'USERNAME'}, $data->{'comACTU'},$data->{'DATE'} );
         break;
+    case 'addNoteUser':
+        $data = json_decode(file_get_contents('php://input'));
+            addNoteUser($data->{'nameGame'}, $data->{'nameUser'}, $data->{'noteUser'});
+        break;
+    case 'GameMoyenne':
+        $data = json_decode(file_get_contents('php://input'));
+            GameMoyenne($data->{'nameGame'});
+            
+        break;
     default: 
         $err =  [ "err" => 'error'];
         echo json_encode($err);

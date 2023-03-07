@@ -1,10 +1,12 @@
+import { dataLocal } from "./login";
+
 const head = document.querySelector('header');
 const main = document.querySelector('main');
 const body = document.querySelector('body');
 const searchBarre = document.querySelector('.searchBarre');
 const idSearch = document.getElementById('resultSearch');
 let NamePageGame = '';
-
+let tabGames = [];
 
 
 const reqGames = () => {
@@ -12,7 +14,6 @@ const reqGames = () => {
     cnn.onreadystatechange = function () {
         if (cnn.readyState === 4 && cnn.status === 200) {
             const Games = JSON.parse(cnn.response);
-            tabGames = [];
             Games.forEach(game => {
                 tabGames.push(game)
             });
@@ -29,7 +30,7 @@ const reqGames = () => {
 
 
 const fullscreen = () => {
-    ERC = document.querySelector('.ERC')
+    const ERC = document.querySelector('.ERC')
     ERC.addEventListener('click', async () => {
         if (document.fullscreenElement) {
             dataLocal.DisplayMode = '!fullscreen'
@@ -45,6 +46,7 @@ const fullscreen = () => {
 }
 
 const PageUser = () => {
+    const header = document.querySelector('header');
     const main = document.querySelector('main');
 
     header.innerHTML = '';
@@ -52,6 +54,7 @@ const PageUser = () => {
     const NavBarre = document.getElementById('navigation');
     NavBarre.style.display = 'flex';
     reqGames();
+    initSearch()
 }
 
 
@@ -105,27 +108,13 @@ const showImg = (Tab) => {
                 body.style.background = `url(${elmt.imgGame})`;
             }
         })
-
-        /*
-         Tab?.forEach(elmt => {
-             if (parseInt(elmt.idGame) == parseInt(article.attributes?.id)) {
-                 body.style.background = ``;
-                 body.style.background = `url(${elmt.imgGame})`;
-                 console.log(elmt.idGame);
-             } else {
-                 console.log(elmt)
- 
-             }
-         })*/
     }
 
     articles.forEach(article => {
         article.addEventListener('click', () => {
             NamePageGame = article.innerText.toLowerCase()
             NamePageGame = NamePageGame.trim()
-            /*pageGame(article.innerText.toLowerCase());
-            return NamePageGame = NamePageGame.trim()
-            */
+
             document.location.href = `Page-Game.html?Game=${NamePageGame}`;
         })
     })
@@ -146,6 +135,9 @@ const infoGame = (json) => {
 
 }
 
+const initSearch = () => {
+    search()
+}
 
 class searchGame {
     constructor(Data) {
@@ -216,3 +208,5 @@ class GAME {
     }
 
 }
+
+export {PageUser, fullscreen, search };

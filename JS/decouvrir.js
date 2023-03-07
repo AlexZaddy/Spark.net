@@ -8,7 +8,7 @@ const contPresent = document.getElementById('presentation-text')
 const animeDecouvrir = () => {
     const btnDecouvre = document.getElementById('decouvrir');
     
-    btnDecouvre.addEventListener('click', ()=> {
+    btnDecouvre?.addEventListener('click', ()=> {
       if(divCarroussel1.style.width > "0%"){
         
             divCarroussel1.style.width = "0%";
@@ -28,6 +28,7 @@ const animeDecouvrir = () => {
 }
 
 const animeDecouvrir2 = () => {
+  btnContinue ?
   btnContinue.addEventListener('click',()=> {
     divCarroussel2.style.width = "0%";
     btnContinue.style.opacity = '0';
@@ -35,11 +36,11 @@ const animeDecouvrir2 = () => {
     btnfinish.style.opacity = "1";
     contPresent.innerHTML = '';
     contPresent.innerHTML = new Decouvrir().eventduMois();
-  })
+  }) : ''
 }
 
 const animeDecouvrir3 = () => {
-  btnfinish.addEventListener('click', () => {
+  btnfinish?.addEventListener('click', () => {
     divCarroussel3.style.width = "0%";
     divCarroussel1.style.width = "100%";
     btnfinish.style.opacity = "0";
@@ -52,8 +53,15 @@ const animeDecouvrir3 = () => {
 
 
 const debugCSSCarrousel = () => {
-    divCarroussel1.style.width = "100%";
-    btnfinish.style.opacity = "0";
+    divCarroussel1? divCarroussel1.style.width = "100%" : '';
+    btnfinish ? btnfinish.style.opacity = "0" : '';
+}
+
+const  initDecouvrir = () => {
+    debugCSSCarrousel();
+    animeDecouvrir();
+    animeDecouvrir2();
+    animeDecouvrir3();
 }
 
 
@@ -71,14 +79,14 @@ class Decouvrir {
             </div>
               <p>
                 <span>
-                  Trouve tes co-equipiers
+                  Trouve tes coequipiers
                   ou 
                 </span>
                  <span>
-                 crée ton équipe
+                 crée ton équipe,
                  </span>
                  <span>
-                    interagie avec les autre équipe explore les jeux avec ton crew
+                    interagis avec les autres équipes, explore les jeux avec ton crew
                   </span>
               </p>
         </article>
@@ -92,8 +100,8 @@ class Decouvrir {
           <img src="./IMG-GAME/fall-Guys-cover.jpeg" alt="image jeux">
         </div>
           <p>
-            Abonne-toi à un jeux commente 
-            partage ton avis avec tous le monde 
+            Abonne-toi à un jeu, commente, 
+            partage ton avis avec tout le monde 
           </p>
     </article>
   `;
@@ -108,10 +116,10 @@ class Decouvrir {
           <p>
 
            <span> 
-              Monte sur scène
+              Monte sur scène,
             </span> 
             <span> 
-              participe aux tournoix organisé ou
+              participe aux tournois organisés ou
             </span>
             <span>
                pourquoi pas en organiser un
@@ -170,7 +178,5 @@ class Decouvrir {
 
 }
 
-debugCSSCarrousel();
-animeDecouvrir();
-animeDecouvrir2();
-animeDecouvrir3();
+export { initDecouvrir }; 
+

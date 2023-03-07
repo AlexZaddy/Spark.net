@@ -22,7 +22,7 @@ class INTRO {
     }
 }
 
-let USERCONECTS = JSON.parse(localStorage.getItem('SPARKCONCT')).acces.acces
+let USERCONECTS = JSON.parse(localStorage.getItem('SPARKCONCT'))?.acces.acces
 
 if(USERCONECTS != 'acces'){
     endIntro();

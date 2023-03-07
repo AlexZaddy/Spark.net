@@ -1,0 +1,125 @@
+.Game-Moyenne{
+    background: #1b1818;
+    position: fixed;
+    top: 85%;
+    left: 3%;
+    z-index: 3;
+    width: 10vh;
+    height: 10vh;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: #00000082 0px 0px 5px 1px;
+    transition: 400ms;
+    animation: 750ms TRANSPARANCE;
+
+    div{
+        height: 85%;
+        width: 99%;
+        padding: 5% 0%;
+        padding-left: 0%;
+        padding-left: 10%;
+        transition: 400ms;
+
+        svg{
+            transition: 400ms;
+            circle{
+                fill: transparent;
+                stroke: #00ff9d;
+                stroke-width: 7;
+                stroke-dasharray: 2;
+            }
+        }
+    }
+
+    span{
+        position: absolute;
+        color: white;
+        font-size: 26px;
+        font-family: 'Roboto';
+        
+    }
+
+  /* &:hover{
+        width: 24vh;
+        justify-content: unset;
+        transition: 400ms;
+        animation: 750ms TRANSPARANCE;
+
+        div{
+            padding-left: 3%;
+            padding-top: 5%;
+            width: 40%;
+            transition: 450ms;
+
+            svg{
+                transition: 400ms;
+            }
+        }
+
+        span{
+            right: 76%;
+            transition: 400ms;
+        }
+    }*/
+}
+
+.addNoteUser{
+    position: relative;
+    bottom: 27%;
+    background: #1b1818;
+    width: 10vh;
+    left: 3%;
+    height: 5%;
+    box-shadow: #00000082 0px 0px 5px 1px;
+    transition: 400ms;
+    animation: 750ms TRANSPARANCE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    font-family: 'Roboto';
+
+    i{
+        margin-left: 15%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+}
+
+.addNote{
+    position: absolute;
+    left: 3%;
+    bottom: 25%;
+    color: white;
+    width: 10vh;
+    height: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-family: 'Roboto';
+    box-shadow: #00000082 0px 0px 5px 1px;
+    animation: 750ms TRANSPARANCE;
+
+    input{
+        -webkit-appearance: none;
+        width: 80%;
+        height: 0.5vh;
+        border-radius: 5px;
+        margin-top: 7%;
+        background-color: #212121;
+    }
+}
+
+.addNote ::-webkit-slider-thumb,
+.addNote ::-webkit-slider-runnable-track{
+    -webkit-appearance: none;
+    background-color: #00ff9d;
+
+}

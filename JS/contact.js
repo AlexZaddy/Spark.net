@@ -1,8 +1,9 @@
+
 const contacts = () => {
 
     const btnContact = document.querySelector('.contact');
-
-    btnContact.addEventListener('click', () => {
+    const MAIL = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
+    btnContact?.addEventListener('click', () => {
         modal.style.display = 'initial';
         const cnn = new XMLHttpRequest();
         cnn.onreadystatechange = () => {

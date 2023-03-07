@@ -1,11 +1,16 @@
-let responseDetail = null;
+import { game } from "./PageGame";
+import { dataLocal } from "./login";
+
+
 const reqActu = () => {
 let req = new XMLHttpRequest();
 req.onreadystatechange = () => {
     if (req.readyState === 4 && req.status === 200){
          if(req.response){
-            console.log(JSON.parse(req.response))
-            initActu(JSON.parse(req.response))
+            const tabRes = JSON.parse(req.response)
+            const resultTab = tabRes.sort()
+
+            initActu(resultTab.reverse())
          }
     }else{
         ''
@@ -18,7 +23,8 @@ req.send(JSON.stringify({Game : game}))
 
 const initActu = (response) => {
     const contentActu = document.querySelector('.listeNews');
-    response.forEach( actu => {
+    contentActu.innerHTML = ''
+    response?.forEach( actu => {
         contentActu.innerHTML += new Actualite(actu).createDivNexActu();
     });
     likeActu();
@@ -34,12 +40,12 @@ const likeActu = () => {
             btnLike.addEventListener('click', () => {
                 if(status == null){
                     status = 'like';
-                    numberLike =  parseInt(btnLike.childNodes[1].innerText) + 1
+                    let numberLike =  parseInt(btnLike.childNodes[1].innerText) + 1
                     btnLike.childNodes[1].innerText = numberLike
                 }else{
                     status = null
-                    numberLike =  parseInt(btnLike.childNodes[1].innerText) - 1
-                    btnLike.childNodes[1].innerText = numberLike
+                    let numberDisLike = parseInt(btnLike.childNodes[1].innerText) - 1
+                    btnLike.childNodes[1].innerText = numberDisLike
                 }
             })
         })
@@ -51,11 +57,11 @@ const likeActu = () => {
             btnLike.addEventListener('click', ()=>{
                 if(status == null){
                     status = 'like';
-                    numberLike =  parseInt(btnLike.childNodes[1].innerText) + 1
+                    let numberLike =  parseInt(btnLike.childNodes[1].innerText) + 1
                     btnLike.childNodes[1].innerText = numberLike
                 }else{
                     status = null
-                    numberLike = parseInt(btnLike.childNodes[1].innerText) - 1
+                    let numberLike = parseInt(btnLike.childNodes[1].innerText) - 1
                     btnLike.childNodes[1].innerText = numberLike
                 }
             })
@@ -103,33 +109,29 @@ const commente = async () => {
     })
 }
 
+
+
 const reqAllDetailCom = async() => {
-    let response = await responseDetail;
+
     const req = new XMLHttpRequest();
 
     req.open('POST','./BackEnd/PHP/index.php?redirAll=recupUser');
-    req.send(JSON.stringify({MAIL:MAIL}));
+    req.send(JSON.stringify({MAIL: dataLocal.Mail}));
 
-    req.onreadystatechange = () => {
-        if (req.readyState === 4 && req.status === 200){
-            responseDetail = JSON.parse(req.response);
-        }
-        response = responseDetail;
-        return response
-    }
+    return req;
 }
 
 const UserCom = async(messages , idActu) => {
+    const { req } = await reqAllDetailCom()
+    console.log(dataLocal.Mail);
     let All = {
         IDUser1: null,
         messages: null,
         date: null,
         IDActu : null,
     }
-
-    reqAllDetailCom();
-    const result = await reqAllDetailCom()
-    All.IDUser1 = responseDetail[0].IDUSER;
+   
+   /* All.IDUser1 = responseDetail[0].IDUSER;
     All.messages = messages;
     All.date = new Date().toLocaleDateString('en-CA');
     All.IDActu = idActu;
@@ -138,16 +140,14 @@ const UserCom = async(messages , idActu) => {
     req.onreadystatechange = () => {}
     req.open('POST','./BackEnd/PHP/index.php?redirAll=newCom');
     req.send(JSON.stringify(All));
-    console.log(All)
+    //console.log(response);*/
 }
-UserCom();
 
 const loadingCom =  async(tab , div) => {
       const afficheLesCom = async() => {
           tab.forEach(elmt => {
           div.innerHTML += new Commentaire(elmt).showCom();
         })
-        console.log(div)
         return div
     }
     afficheLesCom();
@@ -265,3 +265,5 @@ class Commentaire{
         `;
     }
 }
+
+export {reqActu , commente, initActu};

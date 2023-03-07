@@ -1,3 +1,6 @@
+import { fullscreen } from "./PageUser";
+import { dataLocal } from "./login";
+
 const btnSettings = document.querySelector('.btnSettings');
 const modal = document.getElementById('modal');
 
@@ -24,7 +27,7 @@ const deconnect = () => {
         dataLocal.Mail = "";
         dataLocal.acces.acces = "";
         localStorage.setItem('SPARKCONCT', JSON.stringify(dataLocal));
-        this.location.reload()
+        location.reload()
     })
 }
 

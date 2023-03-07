@@ -1,30 +1,43 @@
+import { newAddActu ,btnNewAddActu } from "./addActu";
+import { addUserFriends } from "./addFriends";
+import { reqActu } from "./actualiter";
+import { MAIL } from "./verifConnection";
+import { dataLocal } from "./login";
+import { DivMoyenneGame  } from "./detailGame";
+
+
+
 let game = document.location.href.split('=')[1];
 const main = document.querySelector('main')
-let USERINFO = null;
+
 for (let i = 0; i < game.length; i++) {
     game =  game.replace('%20', ' ')
 }
 
-const infouser = () => {
+const infouser = async () => {
     const req = new XMLHttpRequest();
 
-    req.onreadystatechange = () =>{
+    req.onreadystatechange = async () =>{
         if(req.status == 200 && req.readyState == 4){
-            USERINFO = JSON.parse(req.response);
+            dataLocal.UserPseudo = JSON.parse(req.response)
         }
+       return  dataLocal
     }
-    req.open('POST','./BackEnd/PHP/index.php?redirAll=userInfo',true );
+    req.open('POST','./BackEnd/PHP/index.php?redirAll=userInfo');
     req.send(JSON.stringify({EMAIL: MAIL}));
+
+    const result = await req.onreadystatechange();
+    console.log(result)
 }
 
 
 
-const pageGame = (nameGame) => {
+const pageGame = async (nameGame) => {
     let gameMedia = null
     main.innerHTML = '';
     main.innerHTML = new GAME().contentArticle();
 
-    const listField = document.querySelector('.listeUser')
+    //const listField = document.querySelector('.listeUser')
     main.style.marginTop = '0';
     main.style.height = '100%';
 
@@ -33,39 +46,41 @@ const pageGame = (nameGame) => {
     cnn.send(JSON.stringify({ NAMEGAME: nameGame }));
 
     cnn.onreadystatechange = () => {
+        let gameMedia = null;
         if (cnn.readyState === 4 && cnn.status === 200) {
             gameMedia = JSON.parse(cnn.response)
            /* gameMedia.forEach(game => {
                 listField.innerHTML += new GAME(game).listeUser();
             })*/
+            
         }
+        return gameMedia
     }
     /// attendre resolve function pagegame
-    setTimeout(() => {
-        aboCheck();
-        addUserFriends();
-        reqActu();
-        newAddActu();
-        btnNewAddActu();
-        infouser();
-        backArrow();
-    }, 400)
-    abonnement();
     
 }
+
+
+
+
 const backArrow = () => {
     const arrow = document.querySelector('.backArrow');
-    arrow.addEventListener('click', ()=> {
-
+    arrow?.addEventListener('click', (e)=> {
         document.location.href = 'index.html' 
+        e.stopImmediatePropagation()
     })
+}
+
+const RemoveNavParams = () => {
+    const searchBarre = document.querySelector('#navigation');
+    searchBarre?.remove();
 }
 
 
 const abonnement = () => {
     const abonne = document.querySelector('.abonne');
 
-    abonne.addEventListener('click', () => {
+    abonne?.addEventListener('click', () => {
         const cnn = new XMLHttpRequest();
         cnn.onreadystatechange = function () {
             if (cnn.readyState === 4 && cnn.status === 200) {
@@ -85,23 +100,21 @@ const abonnement = () => {
 }
 
 
-const aboCheck = () => {
+const aboCheck = async () => {
+    await pageGame(game);
     const cnn = new XMLHttpRequest();
     const abonne = document.querySelector('.abonne');
-    let mail = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
-    cnn.onreadystatechange = function () {
-        if (cnn.status == 200 && cnn.readyState == 4) {
-            if (cnn.response && JSON.parse(cnn.response) != '') {
-                abonne.innerHTML = 'Abonné';
-                console.log(JSON.parse(cnn.response))
-            } else {
-                ''
-            }
-        }
-    }
+    const mail = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
     cnn.open('POST', './BackEnd/PHP/index.php?redirAll=aboCheck', true);
     cnn.send(JSON.stringify({ Mail: mail, NAMEGAME: game }));
+
+    cnn.onreadystatechange = async () => {
+        if (cnn.status == 200 && cnn.readyState == 4) {
+                cnn.response && JSON.parse(cnn.response).refus ? abonne.innerHTML='Abonne' : '';
+            }
+        }
 }
+
 
 
 class GAME {
@@ -127,7 +140,7 @@ class GAME {
             <div class="listeNews">
             </div>
          </div>
-        `
+        `;
     }
 
 
@@ -137,9 +150,23 @@ class GAME {
             <p>${this.name}</p>
             <button class="addFriends" value="${this.name}"><i class="fa-solid fa-user-plus"></i></button>
         </article>
-        `
+        `;
     }
 
 }
 
-pageGame(game);
+const initPageGame = async () => {
+    await pageGame(game);
+    abonnement();
+    addUserFriends();
+    reqActu();
+    newAddActu();
+    btnNewAddActu();
+    infouser();
+    backArrow();
+    RemoveNavParams();
+    aboCheck();
+} 
+initPageGame()
+
+export {game , abonnement , backArrow , aboCheck};

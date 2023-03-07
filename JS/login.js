@@ -1,3 +1,7 @@
+import { PageUser } from "./PageUser";
+import { initDecouvrir } from "./decouvrir";
+initDecouvrir()
+
 const inpEmail = document.querySelector('.Email')
 const contentInp = document.querySelector('.content-input')
 const contentConnect = document.querySelector('.content-connect');
@@ -6,13 +10,13 @@ const Alert = document.getElementById('Alert');
 
 let dataLocal = {
     acces: { acces: '', page: '' },
-    Mail: '',
+    Mail: JSON.parse(localStorage.getItem('SPARKCONCT'))?.Mail,
     DisplayMode: '',
     UserPseudo:'',
 }
 
 // afficher formulaire de connexion
-inpEmail.addEventListener('click', () => {
+inpEmail?.addEventListener('click', () => {
     header.style.filter = 'blur(1rem)';
     contentInp.style.zIndex = '0';
     contentConnect.innerHTML = new Login().createLogin()
@@ -103,7 +107,7 @@ const connectUser = () => {
         req.send(JSON.stringify(userData))
 
         req.onreadystatechange = function () {
-            console.log(req)
+    
             if (req.readyState == 4 && req.status == 200) {
                 if (JSON.parse(req.response).acces == "acces-accepter") {
                     const divLogin = document.querySelector('.login')
@@ -113,7 +117,7 @@ const connectUser = () => {
                     dataLocal.acces.acces = 'acces';
                     dataLocal.Mail = userMail.value;
                     localStorage.setItem('SPARKCONCT', JSON.stringify(dataLocal))
-                    MAIL = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
+                    const MAIL = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
                     NavBarre.style.display = 'flex';
                     PageUser();
                     return dataLocal
@@ -124,7 +128,7 @@ const connectUser = () => {
 
             } else {
                 console.log('err: req non-init');
-             }
+            }
         }
 
 
@@ -171,17 +175,7 @@ const newUserSignUp = () => {
         newUserSpark.EMAIL = userMail.value;
         newUserSpark.MDP = userMDP.value;
         newUserSpark.MDP2 = userMDP2.value;
-        /* let req = new XMLHttpRequest();
- 
-         req.onreadystatechange = function () {
-             console.log(this)
-             req.readyState === 4 && req.status === 200 ?
-                 this.response : ''
-         }
- 
-         req.open('POST', './BackEnd/PHP/index.php?redirAll=Unewuser', true);
-         req.send(JSON.stringify(newUserSpark))
-         */
+        
         
         if(newUserSpark.MDP === newUserSpark.MDP2 ){
         fetch(`./BackEnd/PHP/index.php?redirAll=Unewuser`, {
@@ -313,3 +307,6 @@ class MessageAlert {
         `
     }
 }
+
+
+export {dataLocal}

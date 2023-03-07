@@ -297,8 +297,39 @@ function addActu($nameGame, $username , $ACTU , $DATE){
     $GAME = $data1[0]['idGame'];
     $TYPE = 'userActu';
 
+    $dateFormated = explode('/',$DATE);
+    $DATE = $dateFormated[2]. '-' .$dateFormated[1]. '-'.$dateFormated[0];
+
     $cnn = $bdd->prepare('INSERT INTO `actualite` (idGame,idUser,newActu,dateActu,`like`,dislike,Type ) VALUES (?,?,?,?,?,?,?)');
     $cnn->execute([$GAME,$USER,$ACTU,$DATE,'0','0',$TYPE]);
-
-    echo 'nice';
+    $RESP = (object) ['RESP' => $ACTU];
+    echo json_encode($RESP);
 }
+
+function addNoteUser($nameGame, $nameUser, $noteUser ){
+    include('conncetDB.php');
+
+    $cnn = $bdd->prepare('INSERT INTO `gamenote` (nameUser,Note,namegame) VALUES (?,?,?)');
+    $cnn->execute([$nameUser,$noteUser,$nameGame]);
+    $res = (object) ['Game' => $nameGame, 'NoteGame' => $noteUser, 'Req' => 'Succes'];
+    $cnn->closeCursor();
+    echo json_encode($res);
+}
+
+function GameMoyenne($nameGame){
+    include('conncetDB.php');
+    $cnn = $bdd->prepare('SELECT namegame, Note FROM `gamenote` WHERE namegame = ?');
+    $cnn->execute([$nameGame]);
+    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
+
+    $result = null;
+    foreach($data as $TabData){
+        $calcul = $TabData['Note'] + $result;
+        $result = $calcul;
+    }
+    $response = (object) ['response' => $result/count($data)];
+
+    echo json_encode($response);
+    //echo count($data);
+}
+?>

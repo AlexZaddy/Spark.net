@@ -1,3 +1,7 @@
+import { dataLocal } from "./login";
+import { commente , initActu, reqActu} from "./actualiter";
+import { abonnement ,backArrow , game} from "./PageGame";
+import { addNote } from "./detailGame";
 
 
 const newAddActu = () => {
@@ -13,7 +17,9 @@ const btnNewAddActu = () => {
     })
 }
 
+
 const createModalAddActu = () => {
+    const body = document.querySelector('body');
     body.innerHTML += new ModalNewAddActu().createModal();
 
     const cssModalNewActu = document.getElementById('ModalNewActu');
@@ -55,30 +61,39 @@ const removeModalActu = () => {
     commente();
     abonnement();
     backArrow();
+    addNote();
 }
 
 
-const sendActu = () => {
-    comACTU = document.getElementById('comACTU');
+const sendActu = async () => {
+    const comACTU = document.getElementById('comACTU');
     const send = document.querySelector('.SendAddActu');
     const cssContentModal = document.querySelector('.content-Modal');
 
     send.addEventListener('click',() => {
-        console.log(comACTU.value);
 
         reqAddActu(comACTU.value);
         cssContentModal.remove();
-
     })
-
+    
+     refreshActu()
 }
 
-const reqAddActu = (comACTU) => {
-
+const reqAddActu = async (comACTU) => {
+    const date = new Date().toLocaleDateString('fr')
     const req = new XMLHttpRequest();
-    req.open(true , './BackEnd/PHP/index.php?redirAll=addActu');
-    req.send(JSON.stringify({NAMEGAME:game , USERNAME : USERINFO[0].PSEUDO , comACTU : comACTU ,
-    DATE : new Date().toLocaleDateString('en-CA')}));
+    req.open('POST', './BackEnd/PHP/index.php?redirAll=addActu');
+    req.send(JSON.stringify({NAMEGAME:game , USERNAME : dataLocal.UserPseudo[0].PSEUDO , comACTU : comACTU ,
+    DATE : date}));
+    req.onreadystatechange = async () => {
+        req.readyState === 4 && req.response != "" ?  refreshActu() : ''
+    }
+    
+}
+
+const refreshActu = async () => {
+        reqActu();
+        initActu();
 }
 
 class AddActu {
@@ -105,7 +120,7 @@ class ModalNewAddActu {
         return`
         <div class="content-Modal">
             <div id="ModalNewActu">
-            <h3>${USERINFO[0].PSEUDO}</h3>
+            <h3>${dataLocal.UserPseudo[0].PSEUDO}</h3>
             <hr class="separ">
                 <textarea id="comACTU"></textarea>
                 <hr class="separ">
@@ -118,3 +133,5 @@ class ModalNewAddActu {
         `
     }
 }
+
+export {newAddActu , btnNewAddActu, sendActu ,reqAddActu, createModalAddActu };
