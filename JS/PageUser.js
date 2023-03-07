@@ -1,4 +1,4 @@
-import { dataLocal } from "./login";
+import { dataLocal } from "./login.js";
 
 const head = document.querySelector('header');
 const main = document.querySelector('main');
