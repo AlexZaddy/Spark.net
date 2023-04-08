@@ -1,5 +1,5 @@
-import { game } from "./PageGame";
-import { dataLocal } from "./login";
+import { game, infiniteScroll } from "./PageGame";
+import { AllInfoUser } from "./PageUser";
 
 
 const reqActu = () => {
@@ -10,26 +10,31 @@ req.onreadystatechange = () => {
             const tabRes = JSON.parse(req.response)
             const resultTab = tabRes.sort()
 
-            initActu(resultTab.reverse())
+            initActu(resultTab)
          }
     }else{
         ''
     }
 }
 req.open('POST', './BackEnd/PHP/index.php?redirAll=actualite')
-req.send(JSON.stringify({Game : game}))
+req.send(JSON.stringify({Game : game , Offset : 0 }))
 }
 
 
 const initActu = (response) => {
     const contentActu = document.querySelector('.listeNews');
-    contentActu.innerHTML = ''
+    //contentActu.innerHTML = ''
     response?.forEach( actu => {
         contentActu.innerHTML += new Actualite(actu).createDivNexActu();
     });
+
+    contentActu.innerHTML += `<div class="loading-actu">Chargement des Donnée</div>`;
     likeActu();
     commente()
+    infiniteScroll();
 }
+
+
 
 
 const likeActu = () => {
@@ -111,36 +116,25 @@ const commente = async () => {
 
 
 
-const reqAllDetailCom = async() => {
-
-    const req = new XMLHttpRequest();
-
-    req.open('POST','./BackEnd/PHP/index.php?redirAll=recupUser');
-    req.send(JSON.stringify({MAIL: dataLocal.Mail}));
-
-    return req;
-}
-
 const UserCom = async(messages , idActu) => {
-    const { req } = await reqAllDetailCom()
-    console.log(dataLocal.Mail);
+
     let All = {
         IDUser1: null,
         messages: null,
         date: null,
         IDActu : null,
     }
-   
-   /* All.IDUser1 = responseDetail[0].IDUSER;
+
+    All.IDUser1 = AllInfoUser.idUser;
     All.messages = messages;
-    All.date = new Date().toLocaleDateString('en-CA');
+    All.date = new Date().toLocaleDateString('fr')
     All.IDActu = idActu;
     
     const req = new XMLHttpRequest();
     req.onreadystatechange = () => {}
     req.open('POST','./BackEnd/PHP/index.php?redirAll=newCom');
     req.send(JSON.stringify(All));
-    //console.log(response);*/
+    //console.log(response);
 }
 
 const loadingCom =  async(tab , div) => {
@@ -161,7 +155,10 @@ const envoyerCom = () => {
         const hidden = actu.querySelector('.hidden');
         const SendCom = actu.querySelector('.SendCom');
         btnSend?.addEventListener('click', () => {
-            UserCom(SendCom.value, hidden.value)
+            SendCom.value != ''? UserCom(SendCom.value, hidden.value): console.log(SendCom.innerHTML);
+           SendCom.value = '';
+
+            //setTimeout( ()=>{ loadingCom(hidden.value,actu);recupCom(); },3000);
         })
     })
 }
@@ -266,4 +263,4 @@ class Commentaire{
     }
 }
 
-export {reqActu , commente, initActu};
+export {reqActu , commente, initActu,Actualite, likeActu, commente};

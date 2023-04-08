@@ -13,6 +13,7 @@ let dataLocal = {
     Mail: JSON.parse(localStorage.getItem('SPARKCONCT'))?.Mail,
     DisplayMode: '',
     UserPseudo:'',
+    idUser:'',
 }
 
 // afficher formulaire de connexion
@@ -104,21 +105,27 @@ const connectUser = () => {
 
         const req = new XMLHttpRequest();
         req.open('POST', './BackEnd/PHP/index.php?redirAll=Uconnect', true);
-        req.send(JSON.stringify(userData))
+        req.send(JSON.stringify(userData));
 
         req.onreadystatechange = function () {
     
             if (req.readyState == 4 && req.status == 200) {
-                if (JSON.parse(req.response).acces == "acces-accepter") {
+                
+                if (JSON.parse(req.response).acces.acces == "acces-accepter") {
+                    const infoUser = JSON.parse(req.response).response
+                    dataLocal.UserPseudo = infoUser.PSEUDO;
+                    dataLocal.Mail = infoUser.MAIL;
+                    dataLocal.idUser = infoUser.IDUSER;
+                    dataLocal.acces.acces = 'acces';
+                    localStorage.setItem('SPARKCONCT', JSON.stringify(dataLocal));
+                    console.log(dataLocal);
                     const divLogin = document.querySelector('.login')
                     divLogin.style.opacity = 0;
                     contentConnect.innerHTML = '';
                     header.style.filter = '';
-                    dataLocal.acces.acces = 'acces';
-                    dataLocal.Mail = userMail.value;
-                    localStorage.setItem('SPARKCONCT', JSON.stringify(dataLocal))
-                    const MAIL = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
                     NavBarre.style.display = 'flex';
+
+                    const MAIL = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
                     PageUser();
                     return dataLocal
 

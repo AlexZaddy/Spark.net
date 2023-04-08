@@ -32,7 +32,7 @@ const addNote = () => {
     const inpAddNote = document.getElementById('note-range');
     inpAddNote?.addEventListener('input', () => {
        const NoteUser = document.getElementById('NoteUser');
-        NoteUser.innerHTML = `${inpAddNote.value}/5`
+        NoteUser.innerHTML = `${inpAddNote.value}/5`;
         });
     }
 
@@ -54,7 +54,7 @@ const addNote = () => {
         const btnSubmit = document.getElementById('submitNote');
         const inpAddNote = document.getElementById('note-range');
         const UserAddNote = {
-            nameUser : dataLocal.UserPseudo[0].PSEUDO,
+            nameUser : dataLocal.UserPseudo,
             noteUser : inpAddNote.value,
             nameGame : game,
     };

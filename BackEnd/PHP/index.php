@@ -53,7 +53,7 @@ switch ($url) {
         break;
     case 'actualite': 
         $data = json_decode(file_get_contents('php://input'));
-        actuGame($data->{'Game'});
+        actuGame($data->{'Game'}, $data->{'Offset'});
         break;
     case 'loading':
         $data = json_decode(file_get_contents('php://input'));

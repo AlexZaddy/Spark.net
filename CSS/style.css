@@ -651,7 +651,7 @@ main .content-search i {
   background: white;
 }
 .content-list .listeNews {
-  width: 60%;
+  width: 50%;
   border: none;
   border-radius: 5px;
   display: flex;
@@ -695,7 +695,10 @@ main .content-search i {
   width: 98%;
   height: 1%;
   color: #212121;
-  -webkit-appearance: none;
+  border: solid 1px #232323;
+  border-bottom: #232323;
+  border-right: #232323;
+  border-left: #100f0f;
 }
 .content-list .listeNews article aside {
   margin: 0% 3%;

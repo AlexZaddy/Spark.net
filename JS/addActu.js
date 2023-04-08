@@ -2,6 +2,7 @@ import { dataLocal } from "./login";
 import { commente , initActu, reqActu} from "./actualiter";
 import { abonnement ,backArrow , game} from "./PageGame";
 import { addNote } from "./detailGame";
+import { AllInfoUser } from "./PageUser";
 
 
 const newAddActu = () => {
@@ -83,7 +84,7 @@ const reqAddActu = async (comACTU) => {
     const date = new Date().toLocaleDateString('fr')
     const req = new XMLHttpRequest();
     req.open('POST', './BackEnd/PHP/index.php?redirAll=addActu');
-    req.send(JSON.stringify({NAMEGAME:game , USERNAME : dataLocal.UserPseudo[0].PSEUDO , comACTU : comACTU ,
+    req.send(JSON.stringify({NAMEGAME:game , USERNAME :AllInfoUser.UserPseudo , comACTU : comACTU ,
     DATE : date}));
     req.onreadystatechange = async () => {
         req.readyState === 4 && req.response != "" ?  refreshActu() : ''
@@ -120,7 +121,7 @@ class ModalNewAddActu {
         return`
         <div class="content-Modal">
             <div id="ModalNewActu">
-            <h3>${dataLocal.UserPseudo[0].PSEUDO}</h3>
+            <h3>${AllInfoUser.UserPseudo}</h3>
             <hr class="separ">
                 <textarea id="comACTU"></textarea>
                 <hr class="separ">

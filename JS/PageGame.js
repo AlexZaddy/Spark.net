@@ -1,11 +1,10 @@
 import { newAddActu ,btnNewAddActu } from "./addActu";
 import { addUserFriends } from "./addFriends";
-import { reqActu } from "./actualiter";
+import { reqActu, Actualite,likeActu, commente } from "./actualiter";
 import { MAIL } from "./verifConnection";
-import { dataLocal } from "./login";
-import { DivMoyenneGame  } from "./detailGame";
 
 
+let offset = 0;
 
 let game = document.location.href.split('=')[1];
 const main = document.querySelector('main')
@@ -14,26 +13,9 @@ for (let i = 0; i < game.length; i++) {
     game =  game.replace('%20', ' ')
 }
 
-const infouser = async () => {
-    const req = new XMLHttpRequest();
-
-    req.onreadystatechange = async () =>{
-        if(req.status == 200 && req.readyState == 4){
-            dataLocal.UserPseudo = JSON.parse(req.response)
-        }
-       return  dataLocal
-    }
-    req.open('POST','./BackEnd/PHP/index.php?redirAll=userInfo');
-    req.send(JSON.stringify({EMAIL: MAIL}));
-
-    const result = await req.onreadystatechange();
-    console.log(result)
-}
-
-
 
 const pageGame = async (nameGame) => {
-    let gameMedia = null
+    //let gameMedia = null
     main.innerHTML = '';
     main.innerHTML = new GAME().contentArticle();
 
@@ -58,6 +40,67 @@ const pageGame = async (nameGame) => {
     }
     /// attendre resolve function pagegame
     
+}
+
+const initOldactu = async () => {
+    likeActu();
+    commente()
+    infiniteScroll();
+    console.log('oui');
+}
+
+const infiniteScroll = async () => {
+    const loadingActu = document.querySelector('.loading-actu')
+ 
+    
+
+    const reqOldActu = async (offset) => {
+        let req = new XMLHttpRequest();
+        req.onreadystatechange = () => {
+            if (req.readyState === 4 && req.status === 200){
+                 if(req.response){
+                    showOldActu(JSON.parse(req.response));
+                 }
+            }else{
+                ''
+            }
+        }
+        req.open('POST', './BackEnd/PHP/index.php?redirAll=actualite')
+        req.send(JSON.stringify({Game : game , Offset : offset}))
+    }
+
+
+    const showOldActu = async (resultTab) => {
+        const contentActu = document.querySelector('.listeNews');
+        resultTab.forEach( actu  => {
+            contentActu.innerHTML += new Actualite(actu).createDivNexActu();
+        });
+        initOldactu();
+        contentActu.innerHTML += `<div class="loading-actu">Chargement des Donnée</div>`;
+    }
+
+    const observerScroll = async (entry) => {
+        if(entry[0].isIntersecting){
+            loadingActu.remove();
+            offset = offset + 5;
+            console.log(offset);
+            reqOldActu(offset);
+        }
+    }
+
+    const testPageinifinite = async () => {
+    if (loadingActu){
+        console.log('ouioui');
+        new IntersectionObserver(observerScroll).observe(loadingActu);
+    }else{
+        await showOldActu()
+        console.log('non');
+        new IntersectionObserver(observerScroll).observe(loadingActu);
+    }
+
+    }
+
+    testPageinifinite()
 }
 
 
@@ -156,17 +199,17 @@ class GAME {
 }
 
 const initPageGame = async () => {
-    await pageGame(game);
+    pageGame(game);
     abonnement();
     addUserFriends();
-    reqActu();
     newAddActu();
     btnNewAddActu();
-    infouser();
     backArrow();
     RemoveNavParams();
     aboCheck();
+    reqActu(0)
+ 
 } 
 initPageGame()
 
-export {game , abonnement , backArrow , aboCheck};
+export {game , abonnement , backArrow , aboCheck, infiniteScroll};

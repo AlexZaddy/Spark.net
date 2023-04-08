@@ -7,6 +7,7 @@ const searchBarre = document.querySelector('.searchBarre');
 const idSearch = document.getElementById('resultSearch');
 let NamePageGame = '';
 let tabGames = [];
+const AllInfoUser = JSON.parse(localStorage.getItem('SPARKCONCT'));
 
 
 const reqGames = () => {
@@ -209,4 +210,4 @@ class GAME {
 
 }
 
-export {PageUser, fullscreen, search };
+export {PageUser, fullscreen, search, AllInfoUser };

@@ -33,7 +33,8 @@ function userConnect($mail,$mdp) {
     $cnn->closeCursor();
 
     if($DataUser && $DataUser['MDP'] === $mdp){
-        echo (json_encode($Response->{'acces'}));
+        $response = (object) ['response' =>$DataUser, 'acces' => $Response->{'acces'}];
+        echo json_encode($response);
     }else{
         echo(json_encode($Response->{'refus'}));
     }
@@ -201,7 +202,7 @@ function acceptIvitation($mail ,$nameUSER2) {
 
 }
 
-function actuGame($game){
+function actuGame($game,$offset){
     include('conncetDB.php');
     include('Reqresponse.php');
 
@@ -212,12 +213,13 @@ function actuGame($game){
     $IDGAME = $data[0]['idGame'];
 
 
-    $cnn = $bdd->prepare('SELECT actualite.idActu, actualite.idGame, actualite.idUser, actualite.newActu, 
-                                actualite.dateActu, actualite.like, actualite.dislike, actualite.Type,user.PSEUDO FROM actualite 
-                                LEFT JOIN user 
-                                ON user.IDUSER = actualite.idUser 
-                                WHERE idGame=?
-                                ');
+    $cnn = $bdd->prepare('SELECT actualite.idActu, actualite.idGame, actualite.idUser, actualite.newActu,actualite.dateActu, actualite.like, actualite.dislike, actualite.Type,user.PSEUDO FROM actualite  
+            LEFT JOIN user ON user.IDUSER = actualite.idUser 
+            WHERE idGame = ? 
+            GROUP BY actualite.idActu 
+            ORDER BY actualite.idActu 
+            DESC LIMIT 5 OFFSET '.$offset.'
+    ');
     $cnn->execute([$IDGAME]);
     $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
 
@@ -263,9 +265,10 @@ function newCom ($idUSer, $messages, $date, $idActu) {
     include('conncetDB.php');
     include('Reqresponse.php');
 
+    $dateExplod = explode('/',$date);
+    $date = $dateExplod[2].'-'.$dateExplod[1].'-'.$dateExplod[0];
     $cnn = $bdd->prepare('INSERT INTO commentaire (idActu, idUser, comment, Date) VALUES (?,?,?,?)');
     $cnn->execute([$idActu, $idUSer, $messages, $date]);
-
     echo json_encode($Response->{'acces'});
 }
 
