@@ -10,7 +10,7 @@ req.onreadystatechange = () => {
             const tabRes = JSON.parse(req.response)
             const resultTab = tabRes.sort()
 
-            initActu(resultTab)
+            initActu(resultTab);
          }
     }else{
         ''
@@ -28,7 +28,7 @@ const initActu = (response) => {
         contentActu.innerHTML += new Actualite(actu).createDivNexActu();
     });
 
-    contentActu.innerHTML += `<div class="loading-actu">Chargement des Donnée</div>`;
+    contentActu.innerHTML += `<div class="loading-actu"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>`;
     likeActu();
     commente()
     infiniteScroll();
@@ -173,6 +173,7 @@ class Actualite {
         this.Type = data?.Type;
         this.pseudo = data?.PSEUDO;
         this.idActu = data?.idActu;
+        this.idUser = data?.idUser;
     }
 
 
@@ -194,7 +195,9 @@ class Actualite {
                 <article class="actualite">
                     <aside>
                         <span>${this.pseudo}</span>
+                        <i class="fa-solid fa-ellipsis addUserFriends"></i>
                         <input class="hidden" type="hidden" value="${this.idActu}">
+                        <input id="infoAddUser" class="hidden" type="hidden" value="${this.idUser}">
                         </aside>
                         <hr class="separ">
                     <p class="contenu">${this.Actus}</p>
@@ -263,4 +266,4 @@ class Commentaire{
     }
 }
 
-export {reqActu , commente, initActu,Actualite, likeActu, commente};
+export {reqActu , commente, initActu,Actualite, likeActu};

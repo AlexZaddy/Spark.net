@@ -160,18 +160,13 @@ function addFriends($user1, $user2) {
     }
 }
 
-function contact($mail){
+function contact($idUser){
     include('conncetDB.php');
     include('Reqresponse.php');
 
-    if(!empty($mail) && $mail != ''){
-        $cnn = $bdd->prepare('SELECT IDUSER FROM `user` WHERE mail = ?');
-        $cnn->execute([$mail]);
-        $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
-        $ID = $data[0]['IDUSER'];
-
-        $cnn = $bdd->prepare('SELECT amis.invitation, user.PSEUDO FROM `amis` INNER JOIN user ON user.IDUSER = amis.user1id  WHERE user2id = ?');
-        $cnn->execute([$ID]);
+    if(!empty($idUser) && $idUser != ''){
+        $cnn = $bdd->prepare('SELECT amis.invitation, user.PSEUDO, user.IDUSER FROM `amis` INNER JOIN user ON user.IDUSER = amis.user1id  WHERE user2id = ?');
+        $cnn->execute([$idUser]);
         $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($data);
         $cnn->closeCursor();
@@ -179,20 +174,11 @@ function contact($mail){
     } 
 }
 
-function acceptIvitation($mail ,$nameUSER2) {
+function acceptIvitation($IDUSER1,$IDUSER2) {
     include('conncetDB.php');
     include('Reqresponse.php');
      
     $ACCES = 'acces';
-    $cnn = $bdd->prepare('SELECT IDUSER FROM `user` WHERE mail = ?');
-    $cnn->execute([$mail]);
-    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
-    $IDUSER1 = $data[0]['IDUSER'];
-
-    $cnn = $bdd->prepare('SELECT IDUSER FROM `user` WHERE PSEUDO = ?');
-    $cnn->execute([$nameUSER2]);
-    $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
-    $IDUSER2 = $data[0]['IDUSER'];
 
     $cnn = $bdd->prepare('UPDATE amis SET `invitation` = ? WHERE user1id = ? and user2id = ?');
     $cnn->execute([$ACCES, $IDUSER1,$IDUSER2]);
@@ -223,7 +209,11 @@ function actuGame($game,$offset){
     $cnn->execute([$IDGAME]);
     $data = $cnn->fetchAll(PDO::FETCH_ASSOC);
 
+    if($data != ''){
     echo json_encode($data);
+    }else{
+    $data = (object) ['resp'=> 'Nada'];
+    }
 }
 
 function loading($nameame){
@@ -334,5 +324,18 @@ function GameMoyenne($nameGame){
 
     echo json_encode($response);
     //echo count($data);
+}
+
+
+function infoAddUserFriends($idUser){
+    include('conncetDB.php');
+    $cnn = $bdd->prepare('SELECT user.PSEUDO, game.nameGame, game.imgGame FROM `relationgameuser` 
+    RIGHT JOIN game on relationgameuser.idGame = game.idGame
+    INNER JOIN user on user.IDUSER = relationgameuser.IDUSER
+    WHERE user.IDUSER = ?');
+    $cnn->execute([$idUser]);
+    $response = $cnn->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($response);
 }
 ?>

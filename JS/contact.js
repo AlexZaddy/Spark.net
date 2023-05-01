@@ -2,7 +2,7 @@
 const contacts = () => {
 
     const btnContact = document.querySelector('.contact');
-    const MAIL = JSON.parse(localStorage.getItem('SPARKCONCT')).Mail
+    const IDUSER = JSON.parse(localStorage.getItem('SPARKCONCT')).idUser
     btnContact?.addEventListener('click', () => {
         modal.style.display = 'initial';
         const cnn = new XMLHttpRequest();
@@ -14,7 +14,7 @@ const contacts = () => {
             }
         }
         cnn.open('POST', './BackEnd/PHP/index.php?redirAll=contact');
-        cnn.send(JSON.stringify({ MAIL: MAIL }));
+        cnn.send(JSON.stringify({ idUser: IDUSER }));
     })
 }
 
@@ -26,6 +26,8 @@ const createHTLM = () => {
 }
 
 const validInvitation = () => {
+    const IDUSER1 = JSON.parse(localStorage.getItem('SPARKCONCT'));
+
     const btnRefus = document.querySelector('.refus');
     const btnAccept = document.querySelector('.accept');
 
@@ -42,7 +44,7 @@ const validInvitation = () => {
             }
         }
         cnn.open('POST', './BackEnd/PHP/index.php?redirAll=aceeptInvite')
-        cnn.send(JSON.stringify({ MAIL: MAIL, nameUSER2: nameUSER2 }))
+        cnn.send(JSON.stringify({ IDUSER1: IDUSER1, nameUSER2: nameUSER2 }))
     }
 
     const reqRefus = () => {
@@ -52,8 +54,8 @@ const validInvitation = () => {
 
             }
         }
-        cnn.open()
-        cnn.send()
+        cnn.open();
+        cnn.send();
     }
 }
 
@@ -75,7 +77,7 @@ const createListeAmis = (rep) => {
             if (elmt.invitation == 'attente') {
                 html = new Contact(elmt).createContact();
             } else if (elmt.invitation == 'acces') {
-                html = new Contact(elmt).createContactAcceptInvite();
+                //html = new Contact(elmt).createContactAcceptInvite();
             }
         } else {
             if (elmt.invitation == 'attente') {
@@ -92,11 +94,9 @@ const CSSmodalContact = () => {
     const divModal = document.getElementById('modal');
     const divContentContact = document.querySelector('.content-contact');
 
-    divModal.style.width = '25%';
     divModal.style.background = '#3c3939';
-    divContentContact.style.width = '100%';
-    divContentContact.style.height = '95%';
-    divContentContact.style.margin = '5% 0';
+    divContentContact.style.width = '25%';
+    divContentContact.style.height = '95%'; 
     divContentContact.style.display = 'flex';
     divContentContact.style.flexDirection = 'column';
     divContentContact.style.alignItems = 'center';
@@ -106,14 +106,25 @@ class Contact {
     constructor(data) {
         this.pseudo = data?.PSEUDO;
         this.invitation = data?.invitation;
+        this.idUser = data?.IDUSER;
     }
 
     createHTLM() {
         return `
         <p class="back"><i class="fa-sharp fa-solid fa-xmark"></i></p>
-            <div class="content-contact">
-                
-            </div>
+            <section id="section-panel-user">
+                <div class="content-contact">
+                    
+                </div>
+
+                <div class="content-message">
+
+                </div>
+
+                <article class="card-user">
+                    
+                </article>
+            <section>
         `
     }
 
@@ -175,6 +186,7 @@ class Contact {
                     <button class="refus">Refuser</button>
                     <button class="accept">Accepter</button>
                 </div>
+                <input type="hidden" value="${this.idUser}"/>
             </div>
         `;
         }

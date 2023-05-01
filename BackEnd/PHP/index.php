@@ -45,11 +45,11 @@ switch ($url) {
         break;
     case 'contact':
         $data = json_decode(file_get_contents('php://input'));
-        contact($data->{'MAIL'});
+        contact($data->{'idUser'});
         break;
     case 'aceeptInvite':
         $data = json_decode(file_get_contents('php://input'));
-        acceptIvitation($data->{'MAIL'} ,$data->{'nameUSER2'});
+        acceptIvitation($data->{'IDSUSER1'} ,$data->{'IDUSER2'});
         break;
     case 'actualite': 
         $data = json_decode(file_get_contents('php://input'));
@@ -87,7 +87,10 @@ switch ($url) {
     case 'GameMoyenne':
         $data = json_decode(file_get_contents('php://input'));
             GameMoyenne($data->{'nameGame'});
-            
+        break;
+    case 'infoAddUserFriends':
+        $data = json_decode(file_get_contents('php://input'));
+            infoAddUserFriends($data->{'idUser'});
         break;
     default: 
         $err =  [ "err" => 'error'];

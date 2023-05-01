@@ -1,5 +1,5 @@
 import { newAddActu ,btnNewAddActu } from "./addActu";
-import { addUserFriends } from "./addFriends";
+import { btnNewCardAddUser } from "./addUserFriends";
 import { reqActu, Actualite,likeActu, commente } from "./actualiter";
 import { MAIL } from "./verifConnection";
 
@@ -7,7 +7,7 @@ import { MAIL } from "./verifConnection";
 let offset = 0;
 
 let game = document.location.href.split('=')[1];
-const main = document.querySelector('main')
+const main = document.querySelector('main');
 
 for (let i = 0; i < game.length; i++) {
     game =  game.replace('%20', ' ')
@@ -16,6 +16,9 @@ for (let i = 0; i < game.length; i++) {
 
 const pageGame = async (nameGame) => {
     //let gameMedia = null
+    let titlePage = document.querySelector('title');
+    titlePage.innerText = `SPARK | ${nameGame}`; 
+
     main.innerHTML = '';
     main.innerHTML = new GAME().contentArticle();
 
@@ -44,25 +47,34 @@ const pageGame = async (nameGame) => {
 
 const initOldactu = async () => {
     likeActu();
-    commente()
+    commente();
     infiniteScroll();
-    console.log('oui');
+    btnNewCardAddUser();
+}
+
+
+const showOldActu = async (resultTab) => {
+    const contentActu = document.querySelector('.listeNews');
+    resultTab?.forEach( actu  => {
+        contentActu.innerHTML += new Actualite(actu).createDivNexActu();
+    });
+    resultTab?.length !== 0 || resultTab !== undefined? console.log(resultTab) : console.log('bug ici');
+    resultTab.length != 0 ? contentActu.innerHTML += `<div class="loading-actu"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>` : console.log('et non');
+    initOldactu();
 }
 
 const infiniteScroll = async () => {
-    const loadingActu = document.querySelector('.loading-actu')
- 
-    
+    const loadingActu = document.querySelector('.loading-actu');
 
     const reqOldActu = async (offset) => {
-        let req = new XMLHttpRequest();
+        const req = new XMLHttpRequest();
         req.onreadystatechange = () => {
             if (req.readyState === 4 && req.status === 200){
-                 if(req.response){
+                 if(req.response && req.response != ''){
                     showOldActu(JSON.parse(req.response));
                  }
             }else{
-                ''
+                loadingActu?.remove();
             }
         }
         req.open('POST', './BackEnd/PHP/index.php?redirAll=actualite')
@@ -70,37 +82,25 @@ const infiniteScroll = async () => {
     }
 
 
-    const showOldActu = async (resultTab) => {
-        const contentActu = document.querySelector('.listeNews');
-        resultTab.forEach( actu  => {
-            contentActu.innerHTML += new Actualite(actu).createDivNexActu();
-        });
-        initOldactu();
-        contentActu.innerHTML += `<div class="loading-actu">Chargement des Donnée</div>`;
-    }
-
     const observerScroll = async (entry) => {
         if(entry[0].isIntersecting){
             loadingActu.remove();
             offset = offset + 5;
-            console.log(offset);
             reqOldActu(offset);
         }
     }
 
     const testPageinifinite = async () => {
     if (loadingActu){
-        console.log('ouioui');
         new IntersectionObserver(observerScroll).observe(loadingActu);
     }else{
         await showOldActu()
-        console.log('non');
         new IntersectionObserver(observerScroll).observe(loadingActu);
     }
 
     }
 
-    testPageinifinite()
+    testPageinifinite();
 }
 
 
@@ -183,6 +183,8 @@ class GAME {
             <div class="listeNews">
             </div>
          </div>
+
+         <section id="addUserFriends"></section>
         `;
     }
 
@@ -201,15 +203,14 @@ class GAME {
 const initPageGame = async () => {
     pageGame(game);
     abonnement();
-    addUserFriends();
     newAddActu();
     btnNewAddActu();
     backArrow();
     RemoveNavParams();
     aboCheck();
-    reqActu(0)
+    reqActu(0);
  
 } 
 initPageGame()
 
-export {game , abonnement , backArrow , aboCheck, infiniteScroll};
+export {game , abonnement , backArrow , aboCheck, infiniteScroll ,initOldactu,initPageGame};

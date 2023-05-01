@@ -1,9 +1,10 @@
 //fonction calcule de moyenne 
 import { dataLocal } from "./login";
 import { btnNewAddActu} from "./addActu";
-import { commente } from "./actualiter";
-import { abonnement ,backArrow } from "./PageGame";
+import { commente, likeActu } from "./actualiter";
+import { abonnement ,backArrow, infiniteScroll } from "./PageGame";
 import { game } from "./PageGame";
+import { btnNewCardAddUser } from "./addUserFriends";
 
 
 const BODY = document.querySelector('body');
@@ -12,7 +13,7 @@ const calculeMoyenne = (Tab) => {
     Tab.forEach( nombre => {
          addition = addition + nombre;
     })
-    return Math.round(addition/tabResponseGame.length)
+    return Math.round(addition/tabResponseGame.length);
 }
 
 const addNote = () => {
@@ -25,7 +26,10 @@ const addNote = () => {
         commente();
         abonnement();
         backArrow();
+        infiniteScroll();
+        likeActu();
         reqMoyenne();
+        btnNewCardAddUser();
     })
 
     const newNoteUser = () => {
@@ -74,7 +78,8 @@ const DivMoyenneGame = async (div) => {
     div.innerHTML += new DetailGame().createDivMoyenne();
     setTimeout(()=>{
         addNote();
-    },550)
+        btnNewCardAddUser();
+    },550);
 }
 
 

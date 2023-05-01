@@ -133,3 +133,14 @@
         margin-top: 5px;
     }
 }
+
+@keyframes INFOADDUSER {
+    from{
+        opacity: 0;
+        left: 101%;
+    }
+    to{
+        left: 78%;
+        opacity: 1;
+    };
+}

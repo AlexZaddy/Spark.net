@@ -156,7 +156,7 @@ const connectUser = () => {
 
 }
 
-
+//inscription
 const newUserSignUp = () => {
     const userPseudo = document.getElementById('PSEUDO');
     const userMail = document.getElementById('MAIL');
