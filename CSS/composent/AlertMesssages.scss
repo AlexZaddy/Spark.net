@@ -14,3 +14,22 @@
     align-items: center;
     animation: 750ms ease-in ALERT;
 }
+
+.notifFriends{
+    width: 25%;
+    position: relative;
+    margin-top: 3%;
+    cursor: pointer;
+
+    #notif-addUser {
+        display: flex;
+        justify-content: space-between;
+        padding: 5%;
+        font-size: 19px;
+        font-family: 'Roboto';
+        background: linear-gradient(145deg, #f0f0f0, #cacaca);
+        box-shadow: 5px 5px 9px #b1b1b1, -5px -5px 9px #ffffff;
+        animation: ease 200ms NOTIF;
+
+    }
+}

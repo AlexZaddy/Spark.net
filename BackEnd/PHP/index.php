@@ -41,7 +41,7 @@ switch ($url) {
 
     case 'addFriends': 
         $data = json_decode(file_get_contents('php://input'));
-        addFriends($data->{'MAILUSER1'},$data->{'NAMEUSER2'});
+        addFriends($data->{'USER1'},$data->{'USER2'});
         break;
     case 'contact':
         $data = json_decode(file_get_contents('php://input'));
@@ -91,6 +91,10 @@ switch ($url) {
     case 'infoAddUserFriends':
         $data = json_decode(file_get_contents('php://input'));
             infoAddUserFriends($data->{'idUser'});
+        break;
+    case 'notifUser':
+        $data = json_decode(file_get_contents('php://input'));
+            notifUser($data->{'IDUSER'});
         break;
     default: 
         $err =  [ "err" => 'error'];

@@ -133,14 +133,6 @@ class Contact {
             return `
             <div class="contact" >
                 <p class="nameContactUser">${this.pseudo}</p>
-                <div class="userMsg">
-                <i class="fa-solid fa-message"></i>
-                <hr>
-                <p class="lastMsg">
-                    Aucun Message reçu
-                </p>
-                <hr>
-                </div>
                 <div class="msg">
                     <button class="refus">Refuser</button>
                     <button class="accept">Accepter</button>

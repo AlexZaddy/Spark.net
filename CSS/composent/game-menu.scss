@@ -389,6 +389,22 @@
     article{
         width: 100%;
 
+        .game-content{
+            width: 98%;
+        }
+        .art-content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h3{
+            color: whitesmoke;
+            font-family: 'Alexana Neue';
+            font-size: 27px;
+            margin: 5% 0;
+        }
+
             .useGame{
                 width: 100%;
                 margin: 2% 0;
@@ -424,6 +440,45 @@
                     transition: 400ms;
                     color: #1B1818;
                 }
+
             }
+
+        .btn-content{
+            margin: 0 3%;
+
+
+                input{
+                    width: 100%;
+                    height: 20%;
+                    font-size: 1.3em;
+                    font-family: "Alexana Neue";
+                    border: none;
+                    border-radius: 2px;
+                    padding: 2%;
+                    background: #00ff9d;
+                    cursor: pointer;
+                    transition: 400ms;
+                    box-shadow: rgba(0, 0, 0, 0.5098039216) 0px 0px 5px 1px;
+                    margin: 2% 0;
+
+                    &:hover{
+                        transition: 400ms;
+                        background: #00bb73;
+                }
+            }
+
+            .btnCloseSection{
+                background-color: #e0e0e0;
+
+
+                &:hover{
+                    transition: 400ms;
+                    background: #100f0f;
+                    color: whitesmoke;
+            }
+            }
+        }
+
+        
     }
 }

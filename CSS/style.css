@@ -503,6 +503,23 @@ body header {
   animation: 750ms ease-in ALERT;
 }
 
+.notifFriends {
+  width: 25%;
+  position: relative;
+  margin-top: 3%;
+  cursor: pointer;
+}
+.notifFriends #notif-addUser {
+  display: flex;
+  justify-content: space-between;
+  padding: 5%;
+  font-size: 19px;
+  font-family: "Roboto";
+  background: linear-gradient(145deg, #f0f0f0, #cacaca);
+  box-shadow: 5px 5px 9px #b1b1b1, -5px -5px 9px #ffffff;
+  animation: ease 200ms NOTIF;
+}
+
 main {
   position: relative;
   display: flex;
@@ -911,6 +928,20 @@ main .content-search i {
 #addUserFriends article {
   width: 100%;
 }
+#addUserFriends article .game-content {
+  width: 98%;
+}
+#addUserFriends article .art-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#addUserFriends article h3 {
+  color: whitesmoke;
+  font-family: "Alexana Neue";
+  font-size: 27px;
+  margin: 5% 0;
+}
 #addUserFriends article .useGame {
   width: 100%;
   margin: 2% 0;
@@ -943,6 +974,35 @@ main .content-search i {
 #addUserFriends article .useGame:hover {
   transition: 400ms;
   color: #1B1818;
+}
+#addUserFriends article .btn-content {
+  margin: 0 3%;
+}
+#addUserFriends article .btn-content input {
+  width: 100%;
+  height: 20%;
+  font-size: 1.3em;
+  font-family: "Alexana Neue";
+  border: none;
+  border-radius: 2px;
+  padding: 2%;
+  background: #00ff9d;
+  cursor: pointer;
+  transition: 400ms;
+  box-shadow: rgba(0, 0, 0, 0.5098039216) 0px 0px 5px 1px;
+  margin: 2% 0;
+}
+#addUserFriends article .btn-content input:hover {
+  transition: 400ms;
+  background: #00bb73;
+}
+#addUserFriends article .btn-content .btnCloseSection {
+  background-color: #e0e0e0;
+}
+#addUserFriends article .btn-content .btnCloseSection:hover {
+  transition: 400ms;
+  background: #100f0f;
+  color: whitesmoke;
 }
 
 #navigation {
@@ -1231,6 +1291,16 @@ main .content-search i {
   to {
     left: 78%;
     opacity: 1;
+  }
+}
+@keyframes NOTIF {
+  from {
+    opacity: 0;
+    margin-top: 5%;
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
   }
 }
 #addActu {

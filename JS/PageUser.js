@@ -1,3 +1,4 @@
+import { userNotifFriends } from "./addUserFriends.js";
 import { dataLocal } from "./login.js";
 
 const head = document.querySelector('header');
@@ -55,7 +56,8 @@ const PageUser = () => {
     const NavBarre = document.getElementById('navigation');
     NavBarre.style.display = 'flex';
     reqGames();
-    initSearch()
+    initSearch();
+    reqNotifUser();
 }
 
 
@@ -122,15 +124,22 @@ const showImg = (Tab) => {
 
 }
 
+const reqNotifUser = () => {
+    const IDUSER = JSON.parse(localStorage.getItem('SPARKCONCT')).idUser
+    const req = new XMLHttpRequest();
+    req.open('POST', './BackEnd/PHP/index.php?redirAll=notifUser', true);
+    req.send( JSON.stringify({IDUSER : IDUSER}));
+    req.onreadystatechange = () => {req.status == 200 && req.readyState == 4 ? userNotifFriends(JSON.parse(req.response)) : ''};
+    
+}
 
-
-const infoGame = (json) => {
+function infoGame(json) {
     const cnn = new XMLHttpRequest();
     cnn.onreadystatechange = function () {
         if (cnn.readyState === 4 && cnn.status === 200) {
-            console.log(cnn.response)
+            console.log(cnn.response);
         }
-    }
+    };
     cnn.open('POST', './BackEnd/PHP/index.php?redirAll=gamePage', true);
     cnn.send(json);
 
@@ -162,6 +171,10 @@ class searchGame {
         <div id="resultSearch">
             
         </div>
+
+        <section class="notifFriends">
+
+        </section>
         `;
     }
 
@@ -175,6 +188,8 @@ class searchGame {
     }
 
 }
+
+
 
 class GAME {
     constructor(data) {
